@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         MainWindow.cpp \
     AddRecordDlg.cpp \
-    ViewRecordDlg.cpp
+    ViewRecordDlg.cpp \
+    SortFilterProxyModel.cpp
 
 HEADERS  += MainWindow.h \
     AddRecordDlg.h \
-    ViewRecordDlg.h
+    ViewRecordDlg.h \
+    SortFilterProxyModel.h
 
 FORMS    += MainWindow.ui \
     AddRecordDlg.ui \

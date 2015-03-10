@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>646</width>
-    <height>413</height>
+    <width>650</width>
+    <height>447</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,8 +39,8 @@
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <layout class="QGridLayout" name="gridLayout">
-         <item row="2" column="2">
-          <widget class="QComboBox" name="patronymicFilterCombobox"/>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="nameEdit"/>
          </item>
          <item row="2" column="0">
           <widget class="QLabel" name="patronymicLable">
@@ -52,11 +52,12 @@
          <item row="2" column="1">
           <widget class="QLineEdit" name="patronymicEdit"/>
          </item>
-         <item row="0" column="1">
-          <widget class="QLineEdit" name="nameEdit"/>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="surnameEdit"/>
+         <item row="1" column="0">
+          <widget class="QLabel" name="surnameLable">
+           <property name="text">
+            <string>Surname</string>
+           </property>
+          </widget>
          </item>
          <item row="0" column="0">
           <widget class="QLabel" name="nameLabel">
@@ -65,39 +66,8 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="surnameLable">
-           <property name="text">
-            <string>Surname</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QComboBox" name="surnameFilterCombobox"/>
-         </item>
-         <item row="0" column="2">
-          <widget class="QComboBox" name="nameFilterCombobox"/>
-         </item>
-         <item row="0" column="3">
-          <widget class="QCheckBox" name="checkBox">
-           <property name="text">
-            <string>Case sensitive</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="3">
-          <widget class="QCheckBox" name="checkBox_2">
-           <property name="text">
-            <string>Case sensitive</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="3">
-          <widget class="QCheckBox" name="checkBox_3">
-           <property name="text">
-            <string>Case sensitive</string>
-           </property>
-          </widget>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="surnameEdit"/>
          </item>
         </layout>
        </item>
@@ -172,28 +142,6 @@
      </layout>
     </item>
    </layout>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>646</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>File</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menuHelp">
-    <property name="title">
-     <string>Help</string>
-    </property>
-   </widget>
-   <addaction name="menuFile"/>
-   <addaction name="menuHelp"/>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

@@ -3,8 +3,9 @@
 
 #include <QMainWindow>
 #include <QSqlTableModel>
-#include <QSortFilterProxyModel>
 #include <QStringList>
+
+#include "SortFilterProxyModel.h"
 
 namespace Ui {
 class MainWindow;
@@ -26,13 +27,14 @@ private slots:
     void addRecord();
     void viewRecord(const QModelIndex &modelIndex);
     void removeSelectedRecords();
+    void Filter();
 
 private:
     void showOnlyColumns(const QStringList &columns);
 
     Ui::MainWindow *ui;
     QSqlTableModel *model;
-    QSortFilterProxyModel *sortFilterModel;
+    SortFilterProxyModel *sortFilterModel;
 };
 
 #endif // MAINWINDOW_H

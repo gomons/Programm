@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     model->setTable("borrower");
     model->select();
 
-    sortFilterModel = new QSortFilterProxyModel(this);
+    sortFilterModel = new SortFilterProxyModel(this);
     sortFilterModel->setSourceModel(model);
 
     ui->tableView->setModel(sortFilterModel);
@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->addButton, SIGNAL(clicked()), this, SLOT(addRecord()));
     connect(ui->removeButton, SIGNAL(clicked()), this, SLOT(removeSelectedRecords()));
     connect(ui->tableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(viewRecord(QModelIndex)));
+    connect(ui->filterButton, SIGNAL(clicked()), this, SLOT(Filter()));
 }
 
 MainWindow::~MainWindow()
@@ -72,10 +73,20 @@ void MainWindow::removeSelectedRecords()
     model->select();
 }
 
+void MainWindow::Filter()
+{
+    sortFilterModel->resetRegExps();
+
+    sortFilterModel->setNameRegExp(QRegExp(ui->nameEdit->text(), Qt::CaseSensitive, QRegExp::Wildcard));
+    sortFilterModel->setSurnameRegExp(QRegExp(ui->surnameEdit->text(), Qt::CaseSensitive, QRegExp::Wildcard));
+    sortFilterModel->setPatronymicRegExp(QRegExp(ui->patronymicEdit->text(), Qt::CaseSensitive, QRegExp::Wildcard));
+
+    sortFilterModel->invalidate();
+}
+
 void MainWindow::showOnlyColumns(const QStringList &columns)
 {
-    QAbstractItemModel *model = ui->tableView->model();
-    int columnCount = model->columnCount();
+    int columnCount = sortFilterModel->columnCount();
 
     for (int columnID = 0; columnID < columnCount; ++columnID)
     {
