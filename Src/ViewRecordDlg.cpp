@@ -1,6 +1,10 @@
 #include "ViewRecordDlg.h"
 #include "ui_ViewRecordDlg.h"
+#include <QPrintDialog>
+#include <QPrinter>
+#include <QSqlTableModel>
 #include "AddRecordDlg.h"
+#include "TableInfo.h"
 
 ViewRecordDlg::ViewRecordDlg(QSqlTableModel *model, int row, QWidget *parent) :
     model(model),
@@ -14,6 +18,7 @@ ViewRecordDlg::ViewRecordDlg(QSqlTableModel *model, int row, QWidget *parent) :
 
     connect(ui->okButton, SIGNAL(clicked()), this, SLOT(accept()));
     connect(ui->editButton, SIGNAL(clicked()), this, SLOT(edit()));
+    connect(ui->printButton, SIGNAL(clicked()), this, SLOT(print()));
 }
 
 ViewRecordDlg::~ViewRecordDlg()
@@ -26,6 +31,15 @@ void ViewRecordDlg::edit()
     AddRecordDlg dlg(model, row, this);
     dlg.exec();
     showInfo();
+}
+
+void ViewRecordDlg::print()
+{
+    QPrinter printer;
+    QPrintDialog dialog(&printer, this);
+    int res = dialog.exec();
+    if (res == QDialog::Accepted)
+        ui->textEdit->document()->print(&printer);
 }
 
 void ViewRecordDlg::showInfo()
@@ -54,29 +68,19 @@ void ViewRecordDlg::showInfo()
                        "<font size='5'>Activity</font> <br/>"
                        "%activity<br/>");
 
-    int nameColIndex = 1;
-    int surnameColIndex = 2;
-    int patronymicColIndex = 3;
-    int photoColIndex = 4;
-    int activityColIndex = 5;
-    int loanGuaranteeColIndex = 6;
-    int belongingColIndex = 7;
-    int amountColIndex = 8;
-    int regionColIndex = 9;
-    int placeColIndex = 10;
-    int contactColIndex = 11;
+    TableInfo tableInfo;
 
-    QModelIndex nameIndex = model->index(row, nameColIndex);
-    QModelIndex surnameIndex = model->index(row, surnameColIndex);
-    QModelIndex patronymicIndex = model->index(row, patronymicColIndex);
-    QModelIndex photoIndex = model->index(row, photoColIndex);
-    QModelIndex activityIndex = model->index(row, activityColIndex);
-    QModelIndex loanGuaranteeIndex = model->index(row, loanGuaranteeColIndex);
-    QModelIndex belongingIndex = model->index(row, belongingColIndex);
-    QModelIndex amountIndex = model->index(row, amountColIndex);
-    QModelIndex regionIndex = model->index(row, regionColIndex);
-    QModelIndex placeIndex = model->index(row, placeColIndex);
-    QModelIndex contactIndex = model->index(row, contactColIndex);
+    QModelIndex nameIndex = model->index(row, tableInfo.nameFieldID);
+    QModelIndex surnameIndex = model->index(row, tableInfo.surnameFieldID);
+    QModelIndex patronymicIndex = model->index(row, tableInfo.patronymicFieldID);
+    QModelIndex photoIndex = model->index(row, tableInfo.photoFieldID);
+    QModelIndex activityIndex = model->index(row, tableInfo.activityFieldID);
+    QModelIndex loanGuaranteeIndex = model->index(row, tableInfo.loanGuaranteeFieldID);
+    QModelIndex belongingIndex = model->index(row, tableInfo.belongingFieldID);
+    QModelIndex amountIndex = model->index(row, tableInfo.amountFieldID);
+    QModelIndex regionIndex = model->index(row, tableInfo.regionFieldID);
+    QModelIndex placeIndex = model->index(row, tableInfo.placeFieldID);
+    QModelIndex contactIndex = model->index(row, tableInfo.contactFieldID);
 
     QString name = model->data(nameIndex).toString();
     QString surname = model->data(surnameIndex).toString();

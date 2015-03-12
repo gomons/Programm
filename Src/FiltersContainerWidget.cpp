@@ -77,6 +77,7 @@ void FiltersContainerWidget::addFilterWidget()
 
     QLabel *filterNameLabel = new QLabel(filterName);
     QToolButton *deleteButton = new QToolButton();
+    deleteButton->setStyleSheet("border: none");
     deleteButton->setIcon(QIcon(":/icons/remove.png"));
 
     int currRow = layout->rowCount();

@@ -3,10 +3,12 @@
 #include "SelectHeaderFieldsDlg.h"
 #include "SortFilterProxyModel.h"
 #include "TableInfo.h"
+#include "ViewRecordDlg.h"
 
-TableViewWidget::TableViewWidget(SortFilterProxyModel *model, QWidget *parent) :
+TableViewWidget::TableViewWidget(QSqlTableModel *sourceModel, SortFilterProxyModel *model, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::TableViewWidget),
+    sourceModel(sourceModel),
     model(model)
 {
     ui->setupUi(this);
@@ -18,6 +20,8 @@ TableViewWidget::TableViewWidget(SortFilterProxyModel *model, QWidget *parent) :
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     renameHeaders();
+
+    connect(ui->tableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(showDetails(QModelIndex)));
 }
 
 TableViewWidget::~TableViewWidget()
@@ -79,6 +83,13 @@ void TableViewWidget::saveShownHeaders()
 void TableViewWidget::restoreShownHeaders()
 {
     showOnlyHeaders(savedShownHeaders);
+}
+
+void TableViewWidget::showDetails(const QModelIndex &modelIndex)
+{
+    QModelIndex sourceIndex = model->mapToSource(modelIndex);
+    ViewRecordDlg dlg(sourceModel, sourceIndex.row(), this);
+    dlg.exec();
 }
 
 void TableViewWidget::renameHeaders()

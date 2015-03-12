@@ -7,6 +7,7 @@ namespace Ui {
 class TableViewWidget;
 }
 
+class QSqlTableModel;
 class SortFilterProxyModel;
 
 class TableViewWidget : public QWidget
@@ -14,7 +15,7 @@ class TableViewWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit TableViewWidget(SortFilterProxyModel *model, QWidget *parent = 0);
+    explicit TableViewWidget(QSqlTableModel *sourceModel, SortFilterProxyModel *model, QWidget *parent = 0);
     ~TableViewWidget();
 
     void showOnlyHeaders(const QStringList& names);
@@ -24,12 +25,15 @@ public slots:
     void changeShownHeaders();
     void saveShownHeaders();
     void restoreShownHeaders();
+    void showDetails(const QModelIndex &modelIndex);
 
 private:
     void renameHeaders();
     QStringList getShownHeaders();
 
     Ui::TableViewWidget *ui;
+
+    QSqlTableModel *sourceModel;
     SortFilterProxyModel *model;
 
     QStringList savedShownHeaders;

@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     proxyModel->setSourceModel(model);
     filterDlg = new FilterDlg(proxyModel, this);
 
-    tableViewWidget = new TableViewWidget(proxyModel, this);
+    tableViewWidget = new TableViewWidget(model, proxyModel, this);
     tableViewWidget->showOnlyHeaders(QStringList() << tableInfo.nameFieldAlias
                                                    << tableInfo.surnameFieldAlias
                                                    << tableInfo.patronymicFieldAlias

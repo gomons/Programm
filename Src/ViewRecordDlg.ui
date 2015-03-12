@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>429</width>
-    <height>333</height>
+    <width>493</width>
+    <height>560</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Record info</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -23,6 +23,13 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="printButton">
+       <property name="text">
+        <string>Print</string>
+       </property>
+      </widget>
+     </item>
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">

@@ -21,9 +21,10 @@ public:
 private slots:
     void edit();
     void loadPhoto();
+    void removePhoto();
 
 private:
-    void connectSignalsAndSlots();
+    void prepare();
     QString getTableData(int row, int id);
     void setTableData(int row, int id, const QString &data);
 

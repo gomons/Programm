@@ -1,5 +1,6 @@
 #include "AddRecordDlg.h"
 #include "ui_AddRecordDlg.h"
+#include <limits>
 #include <QCryptographicHash>
 #include <QFileDialog>
 #include <QMessageBox>
@@ -16,7 +17,7 @@ AddRecordDlg::AddRecordDlg(QSqlTableModel *model, QWidget *parent) :
 {
     ui->setupUi(this);
     showPhoto(noPhotoFilename);
-    connectSignalsAndSlots();
+    prepare();
 }
 
 AddRecordDlg::AddRecordDlg(QSqlTableModel *model, int row, QWidget *parent) :
@@ -46,7 +47,7 @@ AddRecordDlg::AddRecordDlg(QSqlTableModel *model, int row, QWidget *parent) :
     if (!photoPath.startsWith(":"))
         photoData = readFile(photoPath);
 
-    connectSignalsAndSlots();
+    prepare();
 }
 
 AddRecordDlg::~AddRecordDlg()
@@ -115,10 +116,20 @@ void AddRecordDlg::loadPhoto()
     showPhoto(photoData);
 }
 
-void AddRecordDlg::connectSignalsAndSlots()
+void AddRecordDlg::removePhoto()
 {
+    photoData.clear();
+    showPhoto(noPhotoFilename);
+}
+
+void AddRecordDlg::prepare()
+{
+    int maxInt = std::numeric_limits<int>::max();
+    ui->amountEdit->setValidator(new QIntValidator(0, maxInt, this));
+
     connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(edit()));
     connect(ui->loadPhotoButton, SIGNAL(clicked()), this, SLOT(loadPhoto()));
+    connect(ui->removePhotoButton, SIGNAL(clicked()), this, SLOT(removePhoto()));
 }
 
 QString AddRecordDlg::getTableData(int row, int id)

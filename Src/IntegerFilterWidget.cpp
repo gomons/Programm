@@ -1,5 +1,7 @@
 #include "IntegerFilterWidget.h"
 #include "ui_IntegerFilterWidget.h"
+#include <limits>
+#include <QIntValidator>
 #include "IntRangeTextMatcher.h"
 
 IntegerFilterWidget::IntegerFilterWidget(QWidget *parent) :
@@ -7,6 +9,11 @@ IntegerFilterWidget::IntegerFilterWidget(QWidget *parent) :
     ui(new Ui::IntegerFilterWidget)
 {
     ui->setupUi(this);
+
+    int maxInt = std::numeric_limits<int>::max();
+
+    ui->fromEdit->setValidator(new QIntValidator(0, maxInt, this));
+    ui->toEdit->setValidator(new QIntValidator(0, maxInt, this));
 }
 
 IntegerFilterWidget::~IntegerFilterWidget()

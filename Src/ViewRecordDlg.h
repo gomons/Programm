@@ -2,12 +2,12 @@
 #define VIEWRECORDDLG_H
 
 #include <QDialog>
-#include <QSqlTableModel>
-#include <QModelIndex>
 
 namespace Ui {
 class ViewRecordDlg;
 }
+
+class QSqlTableModel;
 
 class ViewRecordDlg : public QDialog
 {
@@ -19,6 +19,7 @@ public:
 
 private slots:
     void edit();
+    void print();
 
 private:
     void showInfo();
