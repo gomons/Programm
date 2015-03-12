@@ -5,6 +5,7 @@
 #include <QSqlTableModel>
 #include <QStringList>
 
+#include "AbstractFilterWidget.h"
 #include "SortFilterProxyModel.h"
 
 namespace Ui {
@@ -27,14 +28,20 @@ private slots:
     void addRecord();
     void viewRecord(const QModelIndex &modelIndex);
     void removeSelectedRecords();
-    void Filter();
+
+//    void addFilter();
+//    void removeFilter(const QString filterName);
+//    void filter();
+
 
 private:
-    void showOnlyColumns(const QStringList &columns);
+    void showOnlyColumns(const QMap<QString, QString> &names, const QMap<QString, int> &order);
 
     Ui::MainWindow *ui;
     QSqlTableModel *model;
     SortFilterProxyModel *sortFilterModel;
+
+    //QMap<QString, AbstractFilterWidget*> filtersWidgets;
 };
 
 #endif // MAINWINDOW_H

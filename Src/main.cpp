@@ -2,9 +2,12 @@
 #include <QApplication>
 #include <QDir>
 #include <QMessageBox>
+
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
+
+#include "TableInfo.h"
 
 bool initPhotosDir()
 {
@@ -47,21 +50,9 @@ bool initDatabase()
         return false;
     }
 
+
     QSqlQuery query;
-    bool tableCreated = query.exec(QObject::tr("CREATE TABLE IF NOT EXISTS borrower ("
-                                                   "id INTEGER primary key, "
-                                                   "name TEXT, "
-                                                   "surname TEXT, "
-                                                   "patronymic TEXT, "
-                                                   "photo TEXT, "
-                                                   "activity TEXT, "
-                                                   "loan_guarantee TEXT, "
-                                                   "belonging TEXT, "
-                                                   "amount INTEGER, "
-                                                   "region TEXT, "
-                                                   "place TEXT, "
-                                                   "contact TEXT"
-                                               ");"));
+    bool tableCreated = query.exec(TableInfo().getCreateTableQuery());
     if (!tableCreated)
     {
         QMessageBox::critical(nullptr,

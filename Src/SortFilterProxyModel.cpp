@@ -1,4 +1,5 @@
 #include "SortFilterProxyModel.h"
+#include "TableInfo.h"
 
 SortFilterProxyModel::SortFilterProxyModel(QObject *parent) :
     QSortFilterProxyModel(parent)
@@ -9,52 +10,36 @@ SortFilterProxyModel::~SortFilterProxyModel()
 {
 }
 
-void SortFilterProxyModel::resetRegExps()
+void SortFilterProxyModel::resetTextMatchers()
 {
-    nameRegExp = QRegExp();
-    surnameRegExp = QRegExp();
-    patronymicRegExp = QRegExp();
+    textMatchers.clear();
 }
 
-void SortFilterProxyModel::setNameRegExp(const QRegExp& regExp)
+void SortFilterProxyModel::addTextMatcher(const QString &name, QSharedPointer<AbstractTextMatcher> matcher)
 {
-    nameRegExp = regExp;
-}
-
-void SortFilterProxyModel::setSurnameRegExp(const QRegExp& regExp)
-{
-    surnameRegExp = regExp;
-}
-
-void SortFilterProxyModel::setPatronymicRegExp(const QRegExp& regExp)
-{
-    patronymicRegExp = regExp;
+    textMatchers.insert(name, matcher);
 }
 
 bool SortFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
 {
-    if (!nameRegExp.isEmpty())
-    {
-        QModelIndex nameIndex = sourceModel()->index(sourceRow, 1, sourceParent);
-        QString name = sourceModel()->data(nameIndex).toString();
-        if (!nameRegExp.exactMatch(name))
-            return false;
-    }
+    TableInfo tableInfo;
 
-    if (!surnameRegExp.isEmpty())
-    {
-        QModelIndex surnameIndex = sourceModel()->index(sourceRow, 2, sourceParent);
-        QString surname = sourceModel()->data(surnameIndex).toString();
-        if (!surnameRegExp.exactMatch(surname))
-            return false;
-    }
+    QMap<int, QString> idNameMap = tableInfo.getIdNameMap();
+    QMap<QString, QString> nameAliasMap = tableInfo.getNameAliasMap();
+    QStringList aliases = tableInfo.getAliases();
 
-    if (!patronymicRegExp.isEmpty())
+    foreach (const QString &matcherName, textMatchers.keys())
     {
-        QModelIndex patronymicIndex = sourceModel()->index(sourceRow, 3, sourceParent);
-        QString patronymic = sourceModel()->data(patronymicIndex).toString();
-        if (!patronymicRegExp.exactMatch(patronymic))
-            return false;
+        if (aliases.contains(matcherName))
+        {
+            QString name = nameAliasMap.key(matcherName);
+            int id = idNameMap.key(name);
+            QModelIndex index = sourceModel()->index(sourceRow, id, sourceParent);
+            QString text = sourceModel()->data(index).toString();
+            bool matchRes = textMatchers.value(matcherName)->isTextMatch(text);
+            if (!matchRes)
+                return false;
+        }
     }
 
     return true;

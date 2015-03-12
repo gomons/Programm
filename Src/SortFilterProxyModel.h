@@ -3,6 +3,8 @@
 
 #include <QSortFilterProxyModel>
 #include <QRegExp>
+#include <QMap>
+#include "AbstractTextMatcher.h"
 
 class SortFilterProxyModel : public QSortFilterProxyModel
 {
@@ -10,20 +12,14 @@ public:
     SortFilterProxyModel(QObject * parent = 0);
     ~SortFilterProxyModel();
 
-    void resetRegExps();
-
-    void setNameRegExp(const QRegExp& regExp);
-    void setSurnameRegExp(const QRegExp& regExp);
-    void setPatronymicRegExp(const QRegExp& regExp);
+    void resetTextMatchers();
+    void addTextMatcher(const QString &name, QSharedPointer<AbstractTextMatcher> matcher);
 
 protected:
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override;
 
-
 private:
-    QRegExp nameRegExp;
-    QRegExp surnameRegExp;
-    QRegExp patronymicRegExp;
+    QMap<QString, QSharedPointer<AbstractTextMatcher>> textMatchers;
 };
 
 #endif // SORTFILTERPROXYMODEL_H
