@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>620</width>
-    <height>452</height>
+    <width>614</width>
+    <height>442</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,23 +18,56 @@
     <normaloff>:/photos/nophoto.png</normaloff>:/photos/nophoto.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_3">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0">
     <item>
-     <widget class="QSplitter" name="filterTableSplitter">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
+     <widget class="QGroupBox" name="tableGroupBox">
+      <property name="title">
+       <string>Table</string>
       </property>
-      <widget class="QGroupBox" name="filterGroupBox">
-       <property name="title">
-        <string>Filter</string>
-       </property>
-      </widget>
-      <widget class="QGroupBox" name="tableGroupBox">
-       <property name="title">
-        <string>Table</string>
-       </property>
-      </widget>
      </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="addRemoveLayout">
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="addButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Add</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="removeButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Remove</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -43,7 +76,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>620</width>
+     <width>614</width>
      <height>21</height>
     </rect>
    </property>
@@ -52,12 +85,18 @@
      <string>Tools</string>
     </property>
     <addaction name="selectHeadersAction"/>
+    <addaction name="filterAction"/>
    </widget>
    <addaction name="menuTools"/>
   </widget>
   <action name="selectHeadersAction">
    <property name="text">
     <string>Select headers...</string>
+   </property>
+  </action>
+  <action name="filterAction">
+   <property name="text">
+    <string>Filter...</string>
    </property>
   </action>
  </widget>

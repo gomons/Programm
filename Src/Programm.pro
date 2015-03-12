@@ -19,14 +19,14 @@ SOURCES += \
     FiltersContainerWidget.cpp \
     SortFilterProxyModel.cpp \
     TableInfo.cpp \
-    TableModel.cpp \
     TextFilterWidget.cpp \
     ViewRecordDlg.cpp \
     IntegerFilterWidget.cpp \
     RegExpTextMatcher.cpp \
     IntRangeTextMatcher.cpp \
     TableViewWidget.cpp \
-    SelectHeaderFieldsDlg.cpp
+    SelectHeaderFieldsDlg.cpp \
+    FilterDlg.cpp
 
 HEADERS += \
     AbstractFilterWidget.h \
@@ -35,7 +35,6 @@ HEADERS += \
     MainWindow.h \
     SortFilterProxyModel.h \
     TableInfo.h \
-    TableModel.h \
     TextFilterWidget.h \
     ViewRecordDlg.h \
     IntegerFilterWidget.h \
@@ -43,7 +42,8 @@ HEADERS += \
     RegExpTextMatcher.h \
     IntRangeTextMatcher.h \
     TableViewWidget.h \
-    SelectHeaderFieldsDlg.h
+    SelectHeaderFieldsDlg.h \
+    FilterDlg.h
 
 FORMS += \
     AddRecordDlg.ui \
@@ -53,7 +53,8 @@ FORMS += \
     ViewRecordDlg.ui \
     IntegerFilterWidget.ui \
     TableViewWidget.ui \
-    SelectHeaderFieldsDlg.ui
+    SelectHeaderFieldsDlg.ui \
+    FilterDlg.ui
 
 RESOURCES += \
     resources.qrc

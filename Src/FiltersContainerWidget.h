@@ -1,10 +1,8 @@
 #ifndef FILTERSCONTAINERWIDGET_H
 #define FILTERSCONTAINERWIDGET_H
 
-#include <QWidget>
 #include <QSet>
-#include "AbstractFilterWidget.h"
-#include "SortFilterProxyModel.h"
+#include <QWidget>
 
 namespace Ui {
 class FiltersContainerWidget;
@@ -12,19 +10,23 @@ class FiltersContainerWidget;
 
 class QGridLayout;
 
+class AbstractFilterWidget;
+class SortFilterProxyModel;
+
 class FiltersContainerWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit FiltersContainerWidget(QAbstractItemModel *sourceModel, QWidget *parent = 0);
+    explicit FiltersContainerWidget(SortFilterProxyModel *model, QWidget *parent = 0);
     ~FiltersContainerWidget();
 
-    SortFilterProxyModel* getProxyModel();
+signals:
+    void beforeFilter();
+    void afterFilter();
 
 private slots:
     void filter();
-
     void addFilterWidget();
     void removeFilterWidget(const QString& filterName);
 
@@ -33,7 +35,7 @@ private:
     AbstractFilterWidget* createFilterWidget(const QString &filterName);
 
     Ui::FiltersContainerWidget *ui;
-    SortFilterProxyModel *sortFilterModel;
+    SortFilterProxyModel *model;
     QGridLayout* layout;
     QSet<AbstractFilterWidget*> filtersWidgets;
 };

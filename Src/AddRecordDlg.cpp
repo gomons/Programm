@@ -1,89 +1,52 @@
 #include "AddRecordDlg.h"
 #include "ui_AddRecordDlg.h"
 #include <QCryptographicHash>
-#include <QDataWidgetMapper>
 #include <QFileDialog>
 #include <QMessageBox>
-#include <QPixmap>
 #include <QSqlError>
 #include <QSqlTableModel>
+#include "TableInfo.h"
 
 AddRecordDlg::AddRecordDlg(QSqlTableModel *model, QWidget *parent) :
     model(model),
     QDialog(parent),
     ui(new Ui::AddRecordDlg),
-    row(0)
+    row(-1),
+    noPhotoFilename(":/photos/nophoto.png")
 {
     ui->setupUi(this);
-
-    noPhotoFilename = tr(":/photos/nophoto.png");
     showPhoto(noPhotoFilename);
-
-    connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(add()));
-    connect(ui->loadPhotoButton, SIGNAL(clicked()), this, SLOT(loadPhoto()));
+    connectSignalsAndSlots();
 }
 
 AddRecordDlg::AddRecordDlg(QSqlTableModel *model, int row, QWidget *parent) :
     model(model),
     QDialog(parent),
     ui(new Ui::AddRecordDlg),
-    row(row)
+    row(row),
+    noPhotoFilename(":/photos/nophoto.png")
 {
     ui->setupUi(this);
 
-    int nameColIndex = 1;
-    int surnameColIndex = 2;
-    int patronymicColIndex = 3;
-    int photoColIndex = 4;
-    int activityColIndex = 5;
-    int loanGuaranteeColIndex = 6;
-    int belongingColIndex = 7;
-    int amountColIndex = 8;
-    int regionColIndex = 9;
-    int placeColIndex = 10;
-    int contactColIndex = 11;
+    TableInfo tableInfo;
 
-    QModelIndex nameIndex = model->index(row, nameColIndex);
-    QModelIndex surnameIndex = model->index(row, surnameColIndex);
-    QModelIndex patronymicIndex = model->index(row, patronymicColIndex);
-    QModelIndex photoIndex = model->index(row, photoColIndex);
-    QModelIndex activityIndex = model->index(row, activityColIndex);
-    QModelIndex loanGuaranteeIndex = model->index(row, loanGuaranteeColIndex);
-    QModelIndex belongingIndex = model->index(row, belongingColIndex);
-    QModelIndex amountIndex = model->index(row, amountColIndex);
-    QModelIndex regionIndex = model->index(row, regionColIndex);
-    QModelIndex placeIndex = model->index(row, placeColIndex);
-    QModelIndex contactIndex = model->index(row, contactColIndex);
+    ui->nameEdit->setText(getTableData(row, tableInfo.nameFieldID));
+    ui->surnameEdit->setText(getTableData(row, tableInfo.surnameFieldID));
+    ui->patronymicEdit->setText(getTableData(row, tableInfo.patronymicFieldID));
+    ui->activityEdit->setText(getTableData(row, tableInfo.activityFieldID));
+    ui->loanGuaranteeEdit->setText(getTableData(row, tableInfo.loanGuaranteeFieldID));
+    ui->belongingEdit->setText(getTableData(row, tableInfo.belongingFieldID));
+    ui->amountEdit->setText(getTableData(row, tableInfo.amountFieldID));
+    ui->regionEdit->setText(getTableData(row, tableInfo.regionFieldID));
+    ui->placeEdit->setText(getTableData(row, tableInfo.placeFieldID));
+    ui->contactEdit->setText(getTableData(row, tableInfo.contactFieldID));
 
-    QString name = model->data(nameIndex).toString();
-    QString surname = model->data(surnameIndex).toString();
-    QString patronymic = model->data(patronymicIndex).toString();
-    QString photo = model->data(photoIndex).toString();
-    QString activity = model->data(activityIndex).toString();
-    QString loanGuarantee = model->data(loanGuaranteeIndex).toString();
-    QString belonging = model->data(belongingIndex).toString();
-    QString amount = model->data(amountIndex).toString();
-    QString region = model->data(regionIndex).toString();
-    QString place = model->data(placeIndex).toString();
-    QString contact = model->data(contactIndex).toString();
+    QString photoPath = getTableData(row, tableInfo.photoFieldID);
+    showPhoto(photoPath);
+    if (!photoPath.startsWith(":"))
+        photoData = readFile(photoPath);
 
-    ui->nameEdit->setText(name);
-    ui->surnameEdit->setText(surname);
-    ui->patronymicEdit->setText(patronymic);
-    showPhoto(photo);
-    ui->activityEdit->setText(activity);
-    ui->loanGuaranteeEdit->setText(loanGuarantee);
-    ui->belongingEdit->setText(belonging);
-    ui->amountEdit->setText(amount);
-    ui->regionEdit->setText(region);
-    ui->placeEdit->setText(place);
-    ui->contactEdit->setText(contact);
-
-    if (!photo.startsWith(":"))
-        photoData = readFile(photo);
-
-    connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(edit()));
-    connect(ui->loadPhotoButton, SIGNAL(clicked()), this, SLOT(loadPhoto()));
+    connectSignalsAndSlots();
 }
 
 AddRecordDlg::~AddRecordDlg()
@@ -91,57 +54,35 @@ AddRecordDlg::~AddRecordDlg()
     delete ui;
 }
 
-void AddRecordDlg::add()
-{
-    row = 0;
-    bool inserted = model->insertRow(row);
-    if (!inserted)
-    {
-        QMessageBox::critical(this,
-                              tr("Add record"),
-                              tr("Can not insert new row. Error: ") + model->lastError().text());
-        return;
-    }
-    edit();
-}
-
 void AddRecordDlg::edit()
 {
-    int nameColIndex = 1;
-    int surnameColIndex = 2;
-    int patronymicColIndex = 3;
-    int photoColIndex = 4;
-    int activityColIndex = 5;
-    int loanGuaranteeColIndex = 6;
-    int belongingColIndex = 7;
-    int amountColIndex = 8;
-    int regionColIndex = 9;
-    int placeColIndex = 10;
-    int contactColIndex = 11;
+    if (row < 0)
+    {
+        row = 0;
+        bool inserted = model->insertRow(row);
 
-    QModelIndex nameIndex = model->index(row, nameColIndex);
-    QModelIndex surnameIndex = model->index(row, surnameColIndex);
-    QModelIndex patronymicIndex = model->index(row, patronymicColIndex);
-    QModelIndex photoIndex = model->index(row, photoColIndex);
-    QModelIndex activityIndex = model->index(row, activityColIndex);
-    QModelIndex loanGuaranteeIndex = model->index(row, loanGuaranteeColIndex);
-    QModelIndex belongingIndex = model->index(row, belongingColIndex);
-    QModelIndex amountIndex = model->index(row, amountColIndex);
-    QModelIndex regionIndex = model->index(row, regionColIndex);
-    QModelIndex placeIndex = model->index(row, placeColIndex);
-    QModelIndex contactIndex = model->index(row, contactColIndex);
+        if (!inserted)
+        {
+            QMessageBox::critical(this,
+                                  tr("Add record"),
+                                  tr("Can not insert new row. Error: ") + model->lastError().text());
+            return;
+        }
+    }
 
-    model->setData(nameIndex, ui->nameEdit->text());
-    model->setData(surnameIndex, ui->surnameEdit->text());
-    model->setData(patronymicIndex, ui->patronymicEdit->text());
-    model->setData(photoIndex, writePhotoAndGetName());
-    model->setData(activityIndex, ui->activityEdit->text());
-    model->setData(loanGuaranteeIndex, ui->loanGuaranteeEdit->text());
-    model->setData(belongingIndex, ui->belongingEdit->text());
-    model->setData(amountIndex, ui->amountEdit->text());
-    model->setData(regionIndex, ui->regionEdit->text());
-    model->setData(placeIndex, ui->placeEdit->text());
-    model->setData(contactIndex, ui->contactEdit->text());
+    TableInfo tableInfo;
+
+    setTableData(row, tableInfo.nameFieldID, ui->nameEdit->text());
+    setTableData(row, tableInfo.surnameFieldID, ui->surnameEdit->text());
+    setTableData(row, tableInfo.patronymicFieldID, ui->patronymicEdit->text());
+    setTableData(row, tableInfo.photoFieldID, writePhotoAndGetName());
+    setTableData(row, tableInfo.activityFieldID, ui->activityEdit->text());
+    setTableData(row, tableInfo.loanGuaranteeFieldID, ui->loanGuaranteeEdit->text());
+    setTableData(row, tableInfo.belongingFieldID, ui->belongingEdit->text());
+    setTableData(row, tableInfo.amountFieldID, ui->amountEdit->text());
+    setTableData(row, tableInfo.regionFieldID, ui->regionEdit->text());
+    setTableData(row, tableInfo.placeFieldID, ui->placeEdit->text());
+    setTableData(row, tableInfo.contactFieldID, ui->contactEdit->text());
 
     bool submitted = model->submitAll();
     if (!submitted)
@@ -158,24 +99,38 @@ void AddRecordDlg::loadPhoto()
     QString initDir;
     QString caption(tr("Open Image"));
     QString filter(tr("Image Files (*.png *.jpg *.bmp)"));
-    QString fileName = QFileDialog::getOpenFileName(this,
-                                                    caption,
-                                                    initDir,
-                                                    filter);
+    QString fileName = QFileDialog::getOpenFileName(this, caption, initDir, filter);
+
+    if (fileName.isEmpty())
+        return;
 
     photoData = readFile(fileName);
-
     if (photoData.isNull())
     {
-        QMessageBox::critical(this,
-                              tr("Add record"),
-                              tr("Can not read photo"));
+        QMessageBox::critical(this, tr("Add record"), tr("Can not read photo"));
         showPhoto(noPhotoFilename);
+        return;
     }
-    else
-    {
-        showPhoto(photoData);
-    }
+
+    showPhoto(photoData);
+}
+
+void AddRecordDlg::connectSignalsAndSlots()
+{
+    connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(edit()));
+    connect(ui->loadPhotoButton, SIGNAL(clicked()), this, SLOT(loadPhoto()));
+}
+
+QString AddRecordDlg::getTableData(int row, int id)
+{
+    QModelIndex index = model->index(row, id);
+    return model->data(index).toString();
+}
+
+void AddRecordDlg::setTableData(int row, int id, const QString &data)
+{
+    QModelIndex index = model->index(row, id);
+    model->setData(index, data.trimmed());
 }
 
 QString AddRecordDlg::writePhotoAndGetName()
@@ -194,9 +149,7 @@ QString AddRecordDlg::writePhotoAndGetName()
             QByteArray photoData2 = readFile(photoFilename);
             if (photoData != photoData2)
             {
-                QMessageBox::warning(this,
-                                     tr("Add record"),
-                                     tr("Photo already exists: ") + photoFilename);
+                QMessageBox::warning(this, tr("Add record"), tr("Photo already exists: ") + photoFilename);
             }
             return photoFilename;
         }
@@ -204,12 +157,9 @@ QString AddRecordDlg::writePhotoAndGetName()
         QFile photoFile(photoFilename);
         if (!photoFile.open(QFile::WriteOnly))
         {
-            QMessageBox::warning(this,
-                                 tr("Add record"),
-                                 tr("Can not write photo"));
+            QMessageBox::warning(this, tr("Add record"), tr("Can not write photo"));
             return noPhotoFilename;
         }
-
         photoFile.write(photoData);
         return photoFilename;
     }
@@ -232,9 +182,7 @@ void AddRecordDlg::showPhoto(const QPixmap &pixmap)
 {
     if (pixmap.isNull())
     {
-        QMessageBox::critical(this,
-                              tr("Add record"),
-                              tr("Invalid photo data"));
+        QMessageBox::critical(this, tr("Add record"), tr("Invalid photo data"));
         return;
     }
 
@@ -250,6 +198,7 @@ void AddRecordDlg::showPhoto(const QPixmap &pixmap)
         QPixmap newPixmap = pixmap.scaledToWidth(labelSize.width());
         ui->photoLabel->setPixmap(newPixmap);
     }
+
     ui->photoLabel->adjustSize();
 }
 
@@ -258,9 +207,7 @@ QByteArray AddRecordDlg::readFile(const QString &fileName)
     QFile file(fileName);
     if (!file.open(QFile::ReadOnly))
     {
-        QMessageBox::critical(this,
-                              tr("Add record"),
-                              tr("Can not read file ") + fileName);
+        QMessageBox::critical(this, tr("Add record"), tr("Can not read file ") + fileName);
         return "";
     }
     return file.readAll();

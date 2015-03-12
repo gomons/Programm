@@ -2,11 +2,12 @@
 #define ADDRECORDDLG_H
 
 #include <QDialog>
-#include <QSqlTableModel>
 
 namespace Ui {
 class AddRecordDlg;
 }
+
+class QSqlTableModel;
 
 class AddRecordDlg : public QDialog
 {
@@ -18,11 +19,14 @@ public:
     ~AddRecordDlg();
 
 private slots:
-    void add();
     void edit();
     void loadPhoto();
 
 private:
+    void connectSignalsAndSlots();
+    QString getTableData(int row, int id);
+    void setTableData(int row, int id, const QString &data);
+
     QString writePhotoAndGetName();
 
     void showPhoto(const QString &fileName);
@@ -36,7 +40,8 @@ private:
     QSqlTableModel *model;
     int row;
     QByteArray photoData;
-    QString noPhotoFilename;
+
+    const QString noPhotoFilename;
 };
 
 #endif // ADDRECORDDLG_H

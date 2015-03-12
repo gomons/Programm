@@ -2,18 +2,18 @@
 #include "ui_FiltersContainerWidget.h"
 #include <QLabel>
 #include <QToolButton>
+#include "AbstractFilterWidget.h"
+#include "IntegerFilterWidget.h"
+#include "SortFilterProxyModel.h"
 #include "TableInfo.h"
 #include "TextFilterWidget.h"
-#include "IntegerFilterWidget.h"
 
-FiltersContainerWidget::FiltersContainerWidget(QAbstractItemModel *sourceModel, QWidget *parent) :
+FiltersContainerWidget::FiltersContainerWidget(SortFilterProxyModel *model, QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::FiltersContainerWidget)
+    ui(new Ui::FiltersContainerWidget),
+    model(model)
 {
     ui->setupUi(this);
-
-    sortFilterModel = new SortFilterProxyModel(this);
-    sortFilterModel->setSourceModel(sourceModel);
 
     TableInfo tableInfo;
     QStringList filterNames;
@@ -43,23 +43,22 @@ FiltersContainerWidget::~FiltersContainerWidget()
     delete ui;
 }
 
-SortFilterProxyModel* FiltersContainerWidget::getProxyModel()
-{
-    return sortFilterModel;
-}
-
 void FiltersContainerWidget::filter()
 {
-    sortFilterModel->resetTextMatchers();
+    emit beforeFilter();
+
+    model->resetTextMatchers();
 
     foreach (AbstractFilterWidget *filterWidget, filtersWidgets)
     {
         QString filterName = filterWidget->getFilterName();
         QSharedPointer<AbstractTextMatcher> filterTextMatcher = filterWidget->getTextMatcher();
-        sortFilterModel->addTextMatcher(filterName, filterTextMatcher);
+        model->addTextMatcher(filterName, filterTextMatcher);
     }
 
-    sortFilterModel->invalidate();
+    model->invalidate();
+
+    emit afterFilter();
 }
 
 void FiltersContainerWidget::addFilterWidget()
