@@ -66,7 +66,7 @@ void TableViewWidget::changeShownHeaders()
 {
     QStringList shownHeaders = getShownHeaders();
 
-    SelectHeaderFieldsDlg dlg(shownHeaders);
+    SelectHeaderFieldsDlg dlg(shownHeaders, this);
     int res = dlg.exec();
     if (res == QDialog::Accepted)
     {

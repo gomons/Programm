@@ -26,6 +26,7 @@ public slots:
     void addRecord();
     void removeRecord();
     void showFilters();
+    void showAbout();
 
 private:
     Ui::MainWindow *ui;

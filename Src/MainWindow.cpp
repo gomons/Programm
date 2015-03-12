@@ -3,6 +3,7 @@
 #include <QMessageBox>
 #include <QSqlError>
 #include <QSqlTableModel>
+#include "AboutDlg.h"
 #include "AddRecordDlg.h"
 #include "FilterDlg.h"
 #include "FiltersContainerWidget.h"
@@ -42,7 +43,9 @@ MainWindow::MainWindow(QWidget *parent) :
     tableGroupBoxLayout->addWidget(tableViewWidget);
 
     connect(ui->selectHeadersAction, SIGNAL(triggered()), tableViewWidget, SLOT(changeShownHeaders()));
-    connect(ui->filterAction, SIGNAL(triggered()), this, SLOT(showFilters()));;
+    connect(ui->filterAction, SIGNAL(triggered()), this, SLOT(showFilters()));
+    connect(ui->exitAction, SIGNAL(triggered()), this, SLOT(close()));
+    connect(ui->aboutAction, SIGNAL(triggered()), this, SLOT(showAbout()));
 
     connect(ui->addButton, SIGNAL(clicked()), this, SLOT(addRecord()));
     connect(ui->removeButton, SIGNAL(clicked()), this, SLOT(removeRecord()));
@@ -97,10 +100,9 @@ void MainWindow::showFilters()
     filterDlg->show();
 }
 
-//void MainWindow::viewRecord(const QModelIndex &modelIndex)
-//{
-//    QModelIndex sourceIndex = sortFilterModel->mapToSource(modelIndex);
-//    ViewRecordDlg dlg(model, sourceIndex.row(), this);
-//    dlg.exec();
-//}
+void MainWindow::showAbout()
+{
+    AboutDlg dlg(this);
+    dlg.exec();
+}
 

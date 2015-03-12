@@ -26,7 +26,8 @@ SOURCES += \
     IntRangeTextMatcher.cpp \
     TableViewWidget.cpp \
     SelectHeaderFieldsDlg.cpp \
-    FilterDlg.cpp
+    FilterDlg.cpp \
+    AboutDlg.cpp
 
 HEADERS += \
     AbstractFilterWidget.h \
@@ -43,7 +44,8 @@ HEADERS += \
     IntRangeTextMatcher.h \
     TableViewWidget.h \
     SelectHeaderFieldsDlg.h \
-    FilterDlg.h
+    FilterDlg.h \
+    AboutDlg.h
 
 FORMS += \
     AddRecordDlg.ui \
@@ -54,7 +56,8 @@ FORMS += \
     IntegerFilterWidget.ui \
     TableViewWidget.ui \
     SelectHeaderFieldsDlg.ui \
-    FilterDlg.ui
+    FilterDlg.ui \
+    AboutDlg.ui
 
 RESOURCES += \
     resources.qrc

@@ -18,7 +18,7 @@
     <normaloff>:/photos/nophoto.png</normaloff>:/photos/nophoto.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0">
     <item>
      <widget class="QGroupBox" name="tableGroupBox">
       <property name="title">
@@ -87,7 +87,21 @@
     <addaction name="selectHeadersAction"/>
     <addaction name="filterAction"/>
    </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="exitAction"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="aboutAction"/>
+   </widget>
+   <addaction name="menu"/>
    <addaction name="menuTools"/>
+   <addaction name="menuHelp"/>
   </widget>
   <action name="selectHeadersAction">
    <property name="text">
@@ -97,6 +111,16 @@
   <action name="filterAction">
    <property name="text">
     <string>Filter...</string>
+   </property>
+  </action>
+  <action name="exitAction">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="aboutAction">
+   <property name="text">
+    <string>About...</string>
    </property>
   </action>
  </widget>
