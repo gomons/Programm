@@ -153,7 +153,7 @@ QString AddRecordDlg::writePhotoAndGetName()
     else
     {
         QString photoName = getHash(photoData);
-        QString photoFilename = tr("photos/") + photoName;
+        QString photoFilename = "photos/" + photoName;
 
         if (QFile(photoFilename).exists())
         {

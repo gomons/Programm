@@ -64,3 +64,6 @@ RESOURCES += \
 
 DISTFILES += \
     settings.conf
+
+TRANSLATIONS += \
+    Programm_ru.ts

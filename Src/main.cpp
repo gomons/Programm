@@ -1,13 +1,15 @@
 #include "MainWindow.h"
 #include <QApplication>
+#include <QDateTime>
 #include <QDir>
 #include <QFile>
+#include <QLibraryInfo>
 #include <QMessageBox>
 #include <QSplashScreen>
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
-#include <QDateTime>
+#include <QTranslator>
 #include "TableInfo.h"
 
 namespace {
@@ -116,6 +118,14 @@ int main(int argc, char *argv[])
     QPixmap pixmap(":/img/splash.png");
     QSplashScreen splash(pixmap);
     splash.show();
+
+    QTranslator programmTranslator;
+    programmTranslator.load(":/translate/Programm_ru.qm");
+    a.installTranslator(&programmTranslator);
+
+    QTranslator qtTranslator;
+    qtTranslator.load("qt_ru", QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    a.installTranslator(&qtTranslator);
 
     if (!initPhotosDir())
         return 1;

@@ -52,6 +52,20 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(filterDlg, SIGNAL(beforeFilter()), tableViewWidget, SLOT(saveShownHeaders()));
     connect(filterDlg, SIGNAL(afterFilter()), tableViewWidget, SLOT(restoreShownHeaders()));
+
+//    {
+//        QActionGroup* group = new QActionGroup(this);
+//        group->addAction(ui->englishAction);
+//        group->addAction(ui->russianAction);
+
+//        if (ui->englishAction->isChecked())
+//            translateToEnglish();
+//        else if (ui->russianAction->isChecked())
+//            transletToRussion();
+
+//        connect(ui->englishAction, SIGNAL(triggered()), this, SLOT(translateToEnglish()));
+//        connect(ui->russianAction, SIGNAL(triggered()), this, SLOT(transletToRussion()));
+//    }
 }
 
 MainWindow::~MainWindow()
@@ -106,3 +120,41 @@ void MainWindow::showAbout()
     dlg.exec();
 }
 
+//void MainWindow::transletToRussion()
+//{
+//    QTranslator qtTranslator;
+//    qtTranslator.load("qt_" + QLocale::system().name(),
+//            QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+//    app.installTranslator(&qtTranslator);
+
+//    QTranslator myappTranslator;
+//    myappTranslator.load("myapp_" + QLocale::system().name());
+//    app.installTranslator(&myappTranslator);
+//}
+
+//#include <QLibraryInfo>
+//#include <QTranslator>
+//#include <QFile>
+//void MainWindow::translateToEnglish()
+//{
+//    QTranslator qtTranslator;
+
+//    QFile file(":/translate/qt_ru.qm");
+//    QByteArray translateData = file.readAll();
+
+//    bool loaded = qtTranslator.load("qt_ru", "c:\\Users\\Sergey\\Projects\\Home\\Programm\\Src\\");
+//    //qtTranslator
+//    QApplication::instance()->installTranslator(&qtTranslator);
+
+//    auto t = tr("c:\\Users\\Sergey\\Projects\\Home\\Programm\\Src\\");
+//    auto tt = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
+
+//    QTranslator qtTranslator;
+//    auto res = qtTranslator.load("qt_ru", tt);
+//    QApplication::instance()->installTranslator(&qtTranslator);
+    //this->tr
+
+//    QTranslator myappTranslator;
+//    myappTranslator.load("myapp_" + QLocale::system().name());
+//    app.installTranslator(&myappTranslator);
+//}
