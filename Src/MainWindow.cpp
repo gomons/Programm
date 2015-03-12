@@ -66,6 +66,15 @@ void MainWindow::removeRecord()
 {
     QList<int> rows = tableViewWidget->getSelectedRows();
 
+    if (rows.empty())
+        return;
+
+    QMessageBox::StandardButton res = QMessageBox::question(this,
+                                                            tr("Removing records."),
+                                                            tr("Do you realy want delete ") + QString::number(rows.size()) + tr(" records?"));
+    if (res != QMessageBox::Yes)
+        return;
+
     foreach (int row, rows)
     {
         bool removed = model->removeRow(row);

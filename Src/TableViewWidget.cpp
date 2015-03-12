@@ -55,11 +55,11 @@ QList<int> TableViewWidget::getSelectedRows()
     QItemSelection sourceItemSelection = model->mapSelectionToSource(itemSelection);
     QModelIndexList selectedIndexes = sourceItemSelection.indexes();
 
-    QList<int> rows;
+    QSet<int> rows;
     foreach (QModelIndex index, selectedIndexes)
         rows << index.row();
 
-    return rows;
+    return rows.toList();
 }
 
 void TableViewWidget::changeShownHeaders()
