@@ -14,13 +14,15 @@ public:
         QWidget(parent, f)
     {}
     virtual ~AbstractFilterWidget()
-    {}
+    {
+        emit filterRemoved(getFilterName());
+    }
 
-    virtual void setFilterName(const QString &name)
+    void setFilterName(const QString &name)
     {
         this->name = name;
     }
-    virtual QString getFilterName()
+    QString getFilterName()
     {
         return name;
     }

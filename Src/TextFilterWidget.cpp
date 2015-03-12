@@ -15,7 +15,6 @@ TextFilterWidget::TextFilterWidget(QWidget *parent) :
 
 TextFilterWidget::~TextFilterWidget()
 {
-    emit filterRemoved(getFilterName());
     delete ui;
 }
 

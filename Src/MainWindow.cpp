@@ -7,7 +7,9 @@
 #include "ViewRecordDlg.h"
 #include "TextFilterWidget.h"
 #include "FiltersContainerWidget.h"
+#include "TableViewWidget.h"
 #include "TableInfo.h"
+#include "SelectHeaderFieldsDlg.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -15,49 +17,62 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    {
-        TableInfo tableInfo;
+    TableInfo tableInfo;
 
-        model = new QSqlTableModel(this);
-        model->setTable(tableInfo.tableName);
-        model->select();
-        auto filtersContainerWidget = new FiltersContainerWidget(model, this);
+    auto model = new QSqlTableModel(this);
+    model->setTable(tableInfo.tableName);
+    model->select();
 
-        ui->tableView->setModel(filtersContainerWidget->getProxyModel());
-        ui->tableView->setSortingEnabled(true);
-        ui->tableView->horizontalHeader()->setSectionsMovable(true);
-        ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    auto filtersContainerWidget = new FiltersContainerWidget(model, this);
+    SortFilterProxyModel* proxyModel = filtersContainerWidget->getProxyModel();
 
-        QVBoxLayout *layout = new QVBoxLayout();
-        layout->setSpacing(0);
-        layout->setMargin(0);
-        ui->filterGroupBox->setLayout(layout);
+    auto tableViewWidget = new TableViewWidget(proxyModel, this);
+    tableViewWidget->showOnlyHeaders(QStringList() << tableInfo.nameFieldAlias
+                                                   << tableInfo.surnameFieldAlias
+                                                   << tableInfo.patronymicFieldAlias
+                                                   << tableInfo.regionFieldAlias
+                                                   << tableInfo.placeFieldAlias
+                                                   << tableInfo.belongingFieldAlias
+                                                   << tableInfo.contactFieldAlias);
 
-        layout->addWidget(filtersContainerWidget);
-    }
+    QVBoxLayout *filterGroupBoxLayout = new QVBoxLayout();
+    filterGroupBoxLayout->setSpacing(0);
+    filterGroupBoxLayout->setMargin(0);
+    ui->filterGroupBox->setLayout(filterGroupBoxLayout);
+    filterGroupBoxLayout->addWidget(filtersContainerWidget);
+
+    QVBoxLayout *tableGroupBoxLayout = new QVBoxLayout();
+    tableGroupBoxLayout->setSpacing(0);
+    tableGroupBoxLayout->setMargin(0);
+    ui->tableGroupBox->setLayout(tableGroupBoxLayout);
+    tableGroupBoxLayout->addWidget(tableViewWidget);
+
+    connect(ui->selectHeadersAction, SIGNAL(triggered()), tableViewWidget, SLOT(changeShownHeaders()));
+
+    //ui->selectHeadersAction
 
     //sortFilterModel = new SortFilterProxyModel(this);
     //sortFilterModel->setSourceModel(model);
 
 
 
-    QMap<QString, QString> names;
-    QMap<QString, int> order;
-    names["name"] = tr("Name");
-    order["name"] = 1;
-    names["surname"] = tr("Surname");
-    order["surname"] = 2;
-    names["patronymic"] = tr("Patronymic");
-    order["patronymic"] = 3;
-    names["region"] = tr("Region");
-    order["region"] = 4;
-    names["place"] = tr("Place");
-    order["place"] = 5;
-    names["belonging"] = tr("Belonging");
-    order["belonging"] = 6;
-    names["contact"] = tr("Contact");
-    order["contact"] = 7;
-    showOnlyColumns(names, order);
+//    QMap<QString, QString> names;
+//    QMap<QString, int> order;
+//    names["name"] = tr("Name");
+//    order["name"] = 1;
+//    names["surname"] = tr("Surname");
+//    order["surname"] = 2;
+//    names["patronymic"] = tr("Patronymic");
+//    order["patronymic"] = 3;
+//    names["region"] = tr("Region");
+//    order["region"] = 4;
+//    names["place"] = tr("Place");
+//    order["place"] = 5;
+//    names["belonging"] = tr("Belonging");
+//    order["belonging"] = 6;
+//    names["contact"] = tr("Contact");
+//    order["contact"] = 7;
+//    showOnlyColumns(names, order);
 
 //    QVBoxLayout *layout = new QVBoxLayout();
 //    layout->setDirection(QVBoxLayout::BottomToTop);
@@ -71,9 +86,9 @@ MainWindow::MainWindow(QWidget *parent) :
 //    ui->filterFieldCombobox->addItems( QStringList() << tr("Name") << tr("Surname") << tr("Patronymic") << tr("Region") << tr("Place") << tr("Belonging") << tr("Contact"));
 //    ui->filterFieldCombobox->model()->sort(0);
 
-    connect(ui->addButton, SIGNAL(clicked()), this, SLOT(addRecord()));
-    connect(ui->removeButton, SIGNAL(clicked()), this, SLOT(removeSelectedRecords()));
-    connect(ui->tableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(viewRecord(QModelIndex)));
+//    connect(ui->addButton, SIGNAL(clicked()), this, SLOT(addRecord()));
+//    connect(ui->removeButton, SIGNAL(clicked()), this, SLOT(removeSelectedRecords()));
+    //connect(ui->tableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(viewRecord(QModelIndex)));
 
 //    connect(ui->filterButton, SIGNAL(clicked()), this, SLOT(filter()));
 //    connect(ui->addFilterButton, SIGNAL(clicked()), this, SLOT(addFilter()));
@@ -86,43 +101,67 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::addRecord()
-{
-    AddRecordDlg dlg(model, this);
-    dlg.exec();
-}
+//void MainWindow::selectHeaders()
+//{
+//    TableInfo tableInfo;
+//    QMap<int, QString> idNameMap = tableInfo.getIdNameMap();
+//    QMap<QString, QString> nameAliasMap = tableInfo.getNameAliasMap();
 
-void MainWindow::viewRecord(const QModelIndex &modelIndex)
-{
-    QModelIndex sourceIndex = sortFilterModel->mapToSource(modelIndex);
-    ViewRecordDlg dlg(model, sourceIndex.row(), this);
-    dlg.exec();
-}
+//    QStringList currSelectedHeaders;
 
-void MainWindow::removeSelectedRecords()
-{
-    QItemSelection itemSelection = ui->tableView->selectionModel()->selection();
-    QItemSelection sourceItemSelection = sortFilterModel->mapSelectionToSource(itemSelection);
-    QModelIndexList selectedIndexes = sourceItemSelection.indexes();
+//    for (int columnID = 0; columnID < filtersContainerWidget->getProxyModel()->columnCount(); ++columnID)
+//    {
+//        QString name = idNameMap.value(columnID);
+//        QString alias = nameAliasMap.value(name);
+//        currSelectedHeaders << alias;
+//    }
+
+//    SelectHeaderFieldsDlg dlg(currSelectedHeaders);
+//    int res = dlg.exec();
+//    if (res == QDialog::Accepted)
+//    {
+//        QStringList selectedHeaders = dlg.getSelectedHeaderFields();
+//        tableViewWidget->showOnlyHeaders(selectedHeaders);
+//    }
+//}
+
+//void MainWindow::addRecord()
+//{
+//    AddRecordDlg dlg(model, this);
+//    dlg.exec();
+//}
+
+//void MainWindow::viewRecord(const QModelIndex &modelIndex)
+//{
+//    QModelIndex sourceIndex = sortFilterModel->mapToSource(modelIndex);
+//    ViewRecordDlg dlg(model, sourceIndex.row(), this);
+//    dlg.exec();
+//}
+
+//void MainWindow::removeSelectedRecords()
+//{
+//    QItemSelection itemSelection = ui->tableView->selectionModel()->selection();
+//    QItemSelection sourceItemSelection = sortFilterModel->mapSelectionToSource(itemSelection);
+//    QModelIndexList selectedIndexes = sourceItemSelection.indexes();
 
 
-    QModelIndex index;
-    foreach(index, selectedIndexes)
-    {
-        bool removed = model->removeRow(index.row());
-        if (!removed)
-        {
-            QMessageBox::critical(this,
-                                  tr("Database error."),
-                                  tr("Can not remove record. Error: ") + model->lastError().text());
-            emit select();
-            return;
-        }
-    }
+//    QModelIndex index;
+//    foreach(index, selectedIndexes)
+//    {
+//        bool removed = model->removeRow(index.row());
+//        if (!removed)
+//        {
+//            QMessageBox::critical(this,
+//                                  tr("Database error."),
+//                                  tr("Can not remove record. Error: ") + model->lastError().text());
+//            emit select();
+//            return;
+//        }
+//    }
 
-    model->submitAll();
-    model->select();
-}
+//    model->submitAll();
+//    model->select();
+//}
 
 //void MainWindow::addFilter()
 //{
@@ -181,37 +220,37 @@ void MainWindow::removeSelectedRecords()
 //    sortFilterModel->invalidate();
 //}
 
-void MainWindow::showOnlyColumns(const QMap<QString, QString> &names, const QMap<QString, int> &order)
-{
-    QTableView *view = ui->tableView;
-    QAbstractItemModel *model = view->model();
+//void MainWindow::showOnlyColumns(const QMap<QString, QString> &names, const QMap<QString, int> &order)
+//{
+//    QTableView *view = ui->tableView;
+//    QAbstractItemModel *model = view->model();
 
-    for (int columnID = 0; columnID < model->columnCount(); ++columnID)
-    {
-        QString columnName = model->headerData(columnID, Qt::Horizontal).toString();
-        if (names.keys().contains(columnName))
-        {
-            view->setColumnHidden(columnID, false);
-            model->setHeaderData(columnID, Qt::Horizontal, names.value(columnName));
-        }
-        else
-            view->setColumnHidden(columnID, true);
-    }
+//    for (int columnID = 0; columnID < model->columnCount(); ++columnID)
+//    {
+//        QString columnName = model->headerData(columnID, Qt::Horizontal).toString();
+//        if (names.keys().contains(columnName))
+//        {
+//            view->setColumnHidden(columnID, false);
+//            model->setHeaderData(columnID, Qt::Horizontal, names.value(columnName));
+//        }
+//        else
+//            view->setColumnHidden(columnID, true);
+//    }
 
-    QHeaderView *headerView = view->horizontalHeader();
-    for (int i = 1; i <= names.size(); ++i)
-    {
-        auto name = names[order.key(i)];
+//    QHeaderView *headerView = view->horizontalHeader();
+//    for (int i = 1; i <= names.size(); ++i)
+//    {
+//        auto name = names[order.key(i)];
 
-        for (int columnID = 0; columnID < model->columnCount(); ++columnID)
-        {
-            QString columnName = model->headerData(columnID, Qt::Horizontal).toString();
-            if (columnName == name)
-            {
-                auto visualIndex = headerView->visualIndex(columnID);
-                headerView->moveSection(visualIndex, i);
-                break;
-            }
-        }
-    }
-}
+//        for (int columnID = 0; columnID < model->columnCount(); ++columnID)
+//        {
+//            QString columnName = model->headerData(columnID, Qt::Horizontal).toString();
+//            if (columnName == name)
+//            {
+//                auto visualIndex = headerView->visualIndex(columnID);
+//                headerView->moveSection(visualIndex, i);
+//                break;
+//            }
+//        }
+//    }
+//}
