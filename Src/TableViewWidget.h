@@ -2,12 +2,13 @@
 #define TABLEVIEWWIDGET_H
 
 #include <QWidget>
+#include <QModelIndex>
 
 namespace Ui {
 class TableViewWidget;
 }
 
-class QSqlTableModel;
+class QSqlRelationalTableModel;
 class SortFilterProxyModel;
 
 class TableViewWidget : public QWidget
@@ -15,27 +16,28 @@ class TableViewWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit TableViewWidget(QSqlTableModel *sourceModel, SortFilterProxyModel *model, QWidget *parent = 0);
+    explicit TableViewWidget(QSqlRelationalTableModel *model,
+                             SortFilterProxyModel *proxyModel,
+                             QWidget *parent = 0);
     ~TableViewWidget();
 
     void showOnlyHeaders(const QStringList& names);
+    QStringList getShownHeaders();
+
     QList<int> getSelectedRows();
 
-public slots:
-    void changeShownHeaders();
-    void saveShownHeaders();
-    void restoreShownHeaders();
-    void showDetails(const QModelIndex &modelIndex);
+signals:
+    void rowDoubleClicked(int);
+
+private slots:
+    void rowDoubleClicked(QModelIndex index);
 
 private:
     void renameHeaders();
-    QStringList getShownHeaders();
 
     Ui::TableViewWidget *ui;
-
-    QSqlTableModel *sourceModel;
-    SortFilterProxyModel *model;
-
+    QSqlRelationalTableModel *model;
+    SortFilterProxyModel *proxyModel;
     QStringList savedShownHeaders;
 };
 

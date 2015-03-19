@@ -18,8 +18,7 @@ FilterDlg::FilterDlg(SortFilterProxyModel *model, QWidget *parent) :
 
     setLayout(layout);
 
-    connect(filtersContainerWidget, SIGNAL(beforeFilter()), this, SIGNAL(beforeFilter()));
-    connect(filtersContainerWidget, SIGNAL(afterFilter()), this, SIGNAL(afterFilter()));
+    connect(filtersContainerWidget, SIGNAL(filteringComplete()), this, SLOT(accept()));
 }
 
 FilterDlg::~FilterDlg()

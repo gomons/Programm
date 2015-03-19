@@ -3,7 +3,7 @@
 #include <QCheckBox>
 #include <QDialogButtonBox>
 #include <QVBoxLayout>
-#include "TableInfo.h"
+#include "BorrowerTableInfo.h"
 
 SelectHeaderFieldsDlg::SelectHeaderFieldsDlg(const QStringList &selected, QWidget *parent) :
     QDialog(parent),
@@ -17,7 +17,7 @@ SelectHeaderFieldsDlg::SelectHeaderFieldsDlg(const QStringList &selected, QWidge
     auto checkboxLayout = new QVBoxLayout();
     layout->addLayout(checkboxLayout);
 
-    TableInfo tableInfo;
+    BorrowerTableInfo tableInfo;
     QStringList aliases = tableInfo.getAliases();
 
     foreach (QString alias, aliases)

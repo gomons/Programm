@@ -1,15 +1,17 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
+#include <QFile>
 #include <QMessageBox>
 #include <QSqlError>
-#include <QSqlTableModel>
+#include <QSqlRelationalTableModel>
 #include "AboutDlg.h"
 #include "AddRecordDlg.h"
 #include "FilterDlg.h"
-#include "FiltersContainerWidget.h"
+#include "SelectHeaderFieldsDlg.h"
 #include "SortFilterProxyModel.h"
-#include "TableInfo.h"
+#include "BorrowerTableInfo.h"
 #include "TableViewWidget.h"
+#include "ViewRecordDlg.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -17,24 +19,28 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    TableInfo tableInfo;
+    BorrowerTableInfo tableInfo;
 
-    model = new QSqlTableModel(this);
+    model = new QSqlRelationalTableModel(this);
     model->setTable(tableInfo.tableName);
+    model->setRelation(tableInfo.regionFieldID, QSqlRelation("region", "id", "name"));
+    model->setRelation(tableInfo.belongingFieldID, QSqlRelation("belonging", "id", "description"));
+    model->setEditStrategy(QSqlRelationalTableModel::OnManualSubmit);
     model->select();
 
     proxyModel = new SortFilterProxyModel(this);
     proxyModel->setSourceModel(model);
-    filterDlg = new FilterDlg(proxyModel, this);
 
+    QStringList showedHeaders;
+    showedHeaders << tableInfo.nameFieldAlias
+                  << tableInfo.surnameFieldAlias
+                  << tableInfo.patronymicFieldAlias
+                  << tableInfo.regionFieldAlias
+                  << tableInfo.placeFieldAlias
+                  << tableInfo.belongingFieldAlias
+                  << tableInfo.contactFieldAlias;
     tableViewWidget = new TableViewWidget(model, proxyModel, this);
-    tableViewWidget->showOnlyHeaders(QStringList() << tableInfo.nameFieldAlias
-                                                   << tableInfo.surnameFieldAlias
-                                                   << tableInfo.patronymicFieldAlias
-                                                   << tableInfo.regionFieldAlias
-                                                   << tableInfo.placeFieldAlias
-                                                   << tableInfo.belongingFieldAlias
-                                                   << tableInfo.contactFieldAlias);
+    tableViewWidget->showOnlyHeaders(showedHeaders);
 
     QVBoxLayout *tableGroupBoxLayout = new QVBoxLayout();
     tableGroupBoxLayout->setSpacing(0);
@@ -42,30 +48,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tableGroupBox->setLayout(tableGroupBoxLayout);
     tableGroupBoxLayout->addWidget(tableViewWidget);
 
-    connect(ui->selectHeadersAction, SIGNAL(triggered()), tableViewWidget, SLOT(changeShownHeaders()));
-    connect(ui->filterAction, SIGNAL(triggered()), this, SLOT(showFilters()));
-    connect(ui->exitAction, SIGNAL(triggered()), this, SLOT(close()));
-    connect(ui->aboutAction, SIGNAL(triggered()), this, SLOT(showAbout()));
+    filterDlg = new FilterDlg(proxyModel, this);
 
-    connect(ui->addButton, SIGNAL(clicked()), this, SLOT(addRecord()));
-    connect(ui->removeButton, SIGNAL(clicked()), this, SLOT(removeRecord()));
-
-    connect(filterDlg, SIGNAL(beforeFilter()), tableViewWidget, SLOT(saveShownHeaders()));
-    connect(filterDlg, SIGNAL(afterFilter()), tableViewWidget, SLOT(restoreShownHeaders()));
-
-//    {
-//        QActionGroup* group = new QActionGroup(this);
-//        group->addAction(ui->englishAction);
-//        group->addAction(ui->russianAction);
-
-//        if (ui->englishAction->isChecked())
-//            translateToEnglish();
-//        else if (ui->russianAction->isChecked())
-//            transletToRussion();
-
-//        connect(ui->englishAction, SIGNAL(triggered()), this, SLOT(translateToEnglish()));
-//        connect(ui->russianAction, SIGNAL(triggered()), this, SLOT(transletToRussion()));
-//    }
+    connect(ui->removeButton,           SIGNAL(clicked()),              this,   SLOT(removeRecords()));
+    connect(ui->addButton,              SIGNAL(clicked()),              this,   SLOT(showAddRecordDlg()));
+    connect(tableViewWidget,            SIGNAL(rowDoubleClicked(int)),  this,   SLOT(showViewRecordDlg(int)));
+    connect(ui->selectHeadersAction,    SIGNAL(triggered()),            this,   SLOT(showSelectHeaderFieldsDlg()));
+    connect(ui->aboutAction,            SIGNAL(triggered()),            this,   SLOT(showAboutDlg()));
+    connect(ui->exitAction,             SIGNAL(triggered()),            this,   SLOT(close()));
+    connect(ui->filterAction,           SIGNAL(triggered()),            this,   SLOT(showFilterDlg()));
 }
 
 MainWindow::~MainWindow()
@@ -73,13 +64,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::addRecord()
-{
-    AddRecordDlg dlg(model, this);
-    dlg.exec();
-}
-
-void MainWindow::removeRecord()
+void MainWindow::removeRecords()
 {
     QList<int> rows = tableViewWidget->getSelectedRows();
 
@@ -92,8 +77,15 @@ void MainWindow::removeRecord()
     if (res != QMessageBox::Yes)
         return;
 
+    BorrowerTableInfo tableInfo;
+
     foreach (int row, rows)
     {
+        QModelIndex index = model->index(row, tableInfo.photoFieldID);
+        QString photoFilepath = model->data(index).toString();
+        if (!photoFilepath.startsWith(":"))
+            QFile::remove(photoFilepath);
+
         bool removed = model->removeRow(row);
         if (!removed)
         {
@@ -109,52 +101,50 @@ void MainWindow::removeRecord()
     model->select();
 }
 
-void MainWindow::showFilters()
+void MainWindow::showAddRecordDlg()
 {
-    filterDlg->show();
+    AddRecordDlg dlg(model, this);
+    int res = dlg.exec();
+    if (res == QDialog::Accepted)
+        model->select();
 }
 
-void MainWindow::showAbout()
+void MainWindow::showEditRecordDlg(int row)
+{
+    AddRecordDlg dlg(model, row, this);
+    int res = dlg.exec();
+    if (res == QDialog::Accepted)
+        model->select();
+}
+
+void MainWindow::showViewRecordDlg(int row)
+{
+    ViewRecordDlg dlg(model, row, this);
+    connect(&dlg, SIGNAL(edit(int)), this, SLOT(showEditRecordDlg(int)));
+    dlg.exec();
+}
+
+void MainWindow::showFilterDlg()
+{
+    QStringList shownHeaders = tableViewWidget->getShownHeaders();
+    int res = filterDlg->exec();
+    if (res == QDialog::Accepted)
+        tableViewWidget->showOnlyHeaders(shownHeaders);
+}
+
+void MainWindow::showSelectHeaderFieldsDlg()
+{
+    SelectHeaderFieldsDlg dlg(tableViewWidget->getShownHeaders(), this);
+    int res = dlg.exec();
+    if (res == QDialog::Accepted)
+    {
+        QStringList selectedHeaders = dlg.getSelectedHeaderFields();
+        tableViewWidget->showOnlyHeaders(selectedHeaders);
+    }
+}
+
+void MainWindow::showAboutDlg()
 {
     AboutDlg dlg(this);
     dlg.exec();
 }
-
-//void MainWindow::transletToRussion()
-//{
-//    QTranslator qtTranslator;
-//    qtTranslator.load("qt_" + QLocale::system().name(),
-//            QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-//    app.installTranslator(&qtTranslator);
-
-//    QTranslator myappTranslator;
-//    myappTranslator.load("myapp_" + QLocale::system().name());
-//    app.installTranslator(&myappTranslator);
-//}
-
-//#include <QLibraryInfo>
-//#include <QTranslator>
-//#include <QFile>
-//void MainWindow::translateToEnglish()
-//{
-//    QTranslator qtTranslator;
-
-//    QFile file(":/translate/qt_ru.qm");
-//    QByteArray translateData = file.readAll();
-
-//    bool loaded = qtTranslator.load("qt_ru", "c:\\Users\\Sergey\\Projects\\Home\\Programm\\Src\\");
-//    //qtTranslator
-//    QApplication::instance()->installTranslator(&qtTranslator);
-
-//    auto t = tr("c:\\Users\\Sergey\\Projects\\Home\\Programm\\Src\\");
-//    auto tt = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
-
-//    QTranslator qtTranslator;
-//    auto res = qtTranslator.load("qt_ru", tt);
-//    QApplication::instance()->installTranslator(&qtTranslator);
-    //this->tr
-
-//    QTranslator myappTranslator;
-//    myappTranslator.load("myapp_" + QLocale::system().name());
-//    app.installTranslator(&myappTranslator);
-//}

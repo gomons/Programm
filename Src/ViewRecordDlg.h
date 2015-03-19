@@ -7,25 +7,27 @@ namespace Ui {
 class ViewRecordDlg;
 }
 
-class QSqlTableModel;
+class QSqlRelationalTableModel;
 
 class ViewRecordDlg : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit ViewRecordDlg(QSqlTableModel *model, int row, QWidget *parent = 0);
+    explicit ViewRecordDlg(QSqlRelationalTableModel *model, int row, QWidget *parent = 0);
     ~ViewRecordDlg();
+
+signals:
+    void edit(int row);
 
 private slots:
     void edit();
     void print();
-
-private:
     void showInfo();
 
+private:
     Ui::ViewRecordDlg *ui;
-    QSqlTableModel *model;
+    QSqlRelationalTableModel *model;
     int row;
 };
 

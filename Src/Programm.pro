@@ -18,16 +18,16 @@ SOURCES += \
     MainWindow.cpp \
     FiltersContainerWidget.cpp \
     SortFilterProxyModel.cpp \
-    TableInfo.cpp \
     TextFilterWidget.cpp \
     ViewRecordDlg.cpp \
-    IntegerFilterWidget.cpp \
     RegExpTextMatcher.cpp \
     IntRangeTextMatcher.cpp \
     TableViewWidget.cpp \
     SelectHeaderFieldsDlg.cpp \
     FilterDlg.cpp \
-    AboutDlg.cpp
+    AboutDlg.cpp \
+    IntFilterWidget.cpp \
+    BorrowerTableInfo.cpp
 
 HEADERS += \
     AbstractFilterWidget.h \
@@ -35,17 +35,17 @@ HEADERS += \
     FiltersContainerWidget.h \
     MainWindow.h \
     SortFilterProxyModel.h \
-    TableInfo.h \
     TextFilterWidget.h \
     ViewRecordDlg.h \
-    IntegerFilterWidget.h \
     AbstractTextMatcher.h \
     RegExpTextMatcher.h \
     IntRangeTextMatcher.h \
     TableViewWidget.h \
     SelectHeaderFieldsDlg.h \
     FilterDlg.h \
-    AboutDlg.h
+    AboutDlg.h \
+    IntFilterWidget.h \
+    BorrowerTableInfo.h
 
 FORMS += \
     AddRecordDlg.ui \
@@ -53,11 +53,11 @@ FORMS += \
     MainWindow.ui \
     TextFilterWidget.ui \
     ViewRecordDlg.ui \
-    IntegerFilterWidget.ui \
     TableViewWidget.ui \
     SelectHeaderFieldsDlg.ui \
     FilterDlg.ui \
-    AboutDlg.ui
+    AboutDlg.ui \
+    IntFilterWidget.ui
 
 RESOURCES += \
     resources.qrc

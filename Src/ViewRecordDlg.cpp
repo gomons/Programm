@@ -1,12 +1,13 @@
 #include "ViewRecordDlg.h"
 #include "ui_ViewRecordDlg.h"
+#include <QFile>
 #include <QPrintDialog>
 #include <QPrinter>
-#include <QSqlTableModel>
-#include "AddRecordDlg.h"
-#include "TableInfo.h"
+#include <QSqlRelationalTableModel>
+#include <QTextStream>
+#include "BorrowerTableInfo.h"
 
-ViewRecordDlg::ViewRecordDlg(QSqlTableModel *model, int row, QWidget *parent) :
+ViewRecordDlg::ViewRecordDlg(QSqlRelationalTableModel *model, int row, QWidget *parent) :
     model(model),
     row(row),
     QDialog(parent),
@@ -16,9 +17,9 @@ ViewRecordDlg::ViewRecordDlg(QSqlTableModel *model, int row, QWidget *parent) :
 
     showInfo();
 
-    connect(ui->okButton, SIGNAL(clicked()), this, SLOT(accept()));
-    connect(ui->editButton, SIGNAL(clicked()), this, SLOT(edit()));
-    connect(ui->printButton, SIGNAL(clicked()), this, SLOT(print()));
+    connect(ui->okButton,       SIGNAL(clicked()),  this,   SLOT(accept()));
+    connect(ui->editButton,     SIGNAL(clicked()),  this,   SLOT(edit()));
+    connect(ui->printButton,    SIGNAL(clicked()),  this,   SLOT(print()));
 }
 
 ViewRecordDlg::~ViewRecordDlg()
@@ -28,8 +29,7 @@ ViewRecordDlg::~ViewRecordDlg()
 
 void ViewRecordDlg::edit()
 {
-    AddRecordDlg dlg(model, row, this);
-    dlg.exec();
+    emit edit(row);
     showInfo();
 }
 
@@ -44,31 +44,44 @@ void ViewRecordDlg::print()
 
 void ViewRecordDlg::showInfo()
 {
-    QString templ = tr("<font size='6'>%name %surname %patronymic</font> <br/>"
-                       "<img src='%photo' %size> <br/>"
-                       "<br/>"
-                       "<font size='5'>Region</font> <br/>"
-                       "%region<br/>"
-                       "<br/>"
-                       "<font size='5'>Place</font> <br/>"
-                       "%place<br/>"
-                       "<br/>"
-                       "<font size='5'>Loan guarantee</font> <br/>"
-                       "%loanGuarantee<br/>"
-                       "<br/>"
-                       "<font size='5'>Belonging</font> <br/>"
-                       "%belonging<br/>"
-                       "<br/>"
-                       "<font size='5'>Amount</font> <br/>"
-                       "%amount<br/>"
-                       "<br/>"
-                       "<font size='5'>Contact</font> <br/>"
-                       "%contact<br/>"
-                       "<br/>"
-                       "<font size='5'>Activity</font> <br/>"
-                       "%activity<br/>");
+    QString reportTempl;
 
-    TableInfo tableInfo;
+    if (QFile::exists("report"))
+    {
+        QFile file("report");
+        file.open(QFile::ReadOnly);
+        QTextStream in(&file);
+        in.setCodec("UTF-8");
+        reportTempl = in.readAll();
+    }
+    else
+    {
+        reportTempl = tr("<font size='6'>%name %surname %patronymic</font> <br/>"
+                         "<img src='%photo' %size> <br/>"
+                         "<br/>"
+                         "<font size='5'>Region</font> <br/>"
+                         "%region<br/>"
+                         "<br/>"
+                         "<font size='5'>Place</font> <br/>"
+                         "%place<br/>"
+                         "<br/>"
+                         "<font size='5'>Loan guarantee</font> <br/>"
+                         "%loanGuarantee<br/>"
+                         "<br/>"
+                         "<font size='5'>Belonging</font> <br/>"
+                         "%belonging<br/>"
+                         "<br/>"
+                         "<font size='5'>Amount</font> <br/>"
+                         "%amount<br/>"
+                         "<br/>"
+                         "<font size='5'>Contact</font> <br/>"
+                         "%contact<br/>"
+                         "<br/>"
+                         "<font size='5'>Activity</font> <br/>"
+                         "%activity<br/>");
+    }
+
+    BorrowerTableInfo tableInfo;
 
     QModelIndex nameIndex = model->index(row, tableInfo.nameFieldID);
     QModelIndex surnameIndex = model->index(row, tableInfo.surnameFieldID);
@@ -98,9 +111,9 @@ void ViewRecordDlg::showInfo()
     QSize photo_size = pixmap.size();
     QString content;
     if (photo_size.width() > photo_size.height())
-        content = templ.replace("%size", "width='150'");
+        content = reportTempl.replace("%size", "width='150'");
     else
-        content = templ.replace("%size", "height='150'");
+        content = reportTempl.replace("%size", "height='150'");
 
     content = content.replace("%name", name).
                       replace("%surname", surname).

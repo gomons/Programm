@@ -1,5 +1,5 @@
 #include "SortFilterProxyModel.h"
-#include "TableInfo.h"
+#include "BorrowerTableInfo.h"
 
 SortFilterProxyModel::SortFilterProxyModel(QObject *parent) :
     QSortFilterProxyModel(parent)
@@ -22,7 +22,7 @@ void SortFilterProxyModel::addTextMatcher(const QString &name, QSharedPointer<Ab
 
 bool SortFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
 {
-    TableInfo tableInfo;
+    BorrowerTableInfo tableInfo;
 
     QMap<int, QString> idNameMap = tableInfo.getIdNameMap();
     QMap<QString, QString> nameAliasMap = tableInfo.getNameAliasMap();

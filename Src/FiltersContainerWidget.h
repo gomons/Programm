@@ -22,8 +22,7 @@ public:
     ~FiltersContainerWidget();
 
 signals:
-    void beforeFilter();
-    void afterFilter();
+    void filteringComplete();
 
 private slots:
     void filter();

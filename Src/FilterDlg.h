@@ -18,10 +18,6 @@ public:
     explicit FilterDlg(SortFilterProxyModel *model, QWidget *parent = 0);
     ~FilterDlg();
 
-signals:
-    void beforeFilter();
-    void afterFilter();
-
 private:
     Ui::FilterDlg *ui;
     FiltersContainerWidget *filtersContainerWidget;

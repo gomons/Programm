@@ -1,7 +1,7 @@
-#include "TableInfo.h"
+#include "BorrowerTableInfo.h"
 #include "TextFilterWidget.h"
 
-TableInfo::TableInfo() :
+BorrowerTableInfo::BorrowerTableInfo() :
     tableName("borrower"),
 
     idFieldID(0),
@@ -86,55 +86,36 @@ TableInfo::TableInfo() :
     nameTypeMap.insert(contactFieldName, textType);
 }
 
-TableInfo::~TableInfo()
+BorrowerTableInfo::~BorrowerTableInfo()
 {
 }
 
-QString TableInfo::getCreateTableQuery() const
-{
-     return QString("CREATE TABLE IF NOT EXISTS " +
-                    tableName + " (" +
-                        idFieldName             + " " + nameTypeMap.value(idFieldName)            + " primary key," +
-                        nameFieldName           + " " + nameTypeMap.value(nameFieldName)          + "," +
-                        surnameFieldName        + " " + nameTypeMap.value(surnameFieldName)       + "," +
-                        patronymicFieldName     + " " + nameTypeMap.value(patronymicFieldName)    + "," +
-                        photoFieldName          + " " + nameTypeMap.value(photoFieldName)         + "," +
-                        activityFieldName       + " " + nameTypeMap.value(activityFieldName)      + "," +
-                        loanGuaranteeFieldName  + " " + nameTypeMap.value(loanGuaranteeFieldName) + "," +
-                        belongingFieldName      + " " + nameTypeMap.value(belongingFieldName)     + "," +
-                        amountFieldName         + " " + nameTypeMap.value(amountFieldName)        + "," +
-                        regionFieldName         + " " + nameTypeMap.value(regionFieldName)        + "," +
-                        placeFieldName          + " " + nameTypeMap.value(placeFieldName)         + "," +
-                        contactFieldName        + " " + nameTypeMap.value(contactFieldName)       +
-                    ");");
-}
-
-QList<int> TableInfo::getIds() const
+QList<int> BorrowerTableInfo::getIds() const
 {
     return idNameMap.keys();
 }
 
-QStringList TableInfo::getNames() const
+QStringList BorrowerTableInfo::getNames() const
 {
     return idNameMap.values();
 }
 
-QStringList TableInfo::getAliases() const
+QStringList BorrowerTableInfo::getAliases() const
 {
     return nameAliasMap.values();
 }
 
-QMap<int, QString> TableInfo::getIdNameMap() const
+QMap<int, QString> BorrowerTableInfo::getIdNameMap() const
 {
     return idNameMap;
 }
 
-QMap<QString, QString> TableInfo::getNameAliasMap() const
+QMap<QString, QString> BorrowerTableInfo::getNameAliasMap() const
 {
     return nameAliasMap;
 }
 
-QMap<QString, QString> TableInfo::getNameTypeMap() const
+QMap<QString, QString> BorrowerTableInfo::getNameTypeMap() const
 {
     return nameTypeMap;
 }

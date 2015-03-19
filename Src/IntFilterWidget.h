@@ -5,7 +5,7 @@
 #include "AbstractFilterWidget.h"
 
 namespace Ui {
-class IntegerFilterWidget;
+class IntFilterWidget;
 }
 
 class IntegerFilterWidget : public AbstractFilterWidget
@@ -19,7 +19,7 @@ public:
     QSharedPointer<AbstractTextMatcher> getTextMatcher() override;
 
 private:
-    Ui::IntegerFilterWidget *ui;
+    Ui::IntFilterWidget *ui;
 };
 
 #endif // INTEGERFILTERWIDGET_H

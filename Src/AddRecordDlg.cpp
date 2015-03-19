@@ -1,98 +1,111 @@
 #include "AddRecordDlg.h"
 #include "ui_AddRecordDlg.h"
-#include <limits>
+#include <QBuffer>
 #include <QCryptographicHash>
+#include <QDataWidgetMapper>
+#include <QDateTime>
 #include <QFileDialog>
 #include <QMessageBox>
-#include <QSqlError>
-#include <QSqlTableModel>
-#include "TableInfo.h"
+#include <QSqlRelationalDelegate>
+#include <QSqlRelationalTableModel>
+#include "BorrowerTableInfo.h"
 
-AddRecordDlg::AddRecordDlg(QSqlTableModel *model, QWidget *parent) :
-    model(model),
+AddRecordDlg::AddRecordDlg(QSqlRelationalTableModel *model, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddRecordDlg),
-    row(-1),
-    noPhotoFilename(":/photos/nophoto.png")
+    model(model)
 {
     ui->setupUi(this);
-    showPhoto(noPhotoFilename);
-    prepare();
+
+    prepareDlg();
+    model->insertRow(0);
+    mapper->setCurrentIndex(0);
+
+    removePhoto();
 }
 
-AddRecordDlg::AddRecordDlg(QSqlTableModel *model, int row, QWidget *parent) :
-    model(model),
+AddRecordDlg::AddRecordDlg(QSqlRelationalTableModel *model, int row, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddRecordDlg),
-    row(row),
-    noPhotoFilename(":/photos/nophoto.png")
+    model(model)
 {
     ui->setupUi(this);
 
-    TableInfo tableInfo;
+    prepareDlg();
+    mapper->setCurrentIndex(row);
 
-    ui->nameEdit->setText(getTableData(row, tableInfo.nameFieldID));
-    ui->surnameEdit->setText(getTableData(row, tableInfo.surnameFieldID));
-    ui->patronymicEdit->setText(getTableData(row, tableInfo.patronymicFieldID));
-    ui->activityEdit->setText(getTableData(row, tableInfo.activityFieldID));
-    ui->loanGuaranteeEdit->setText(getTableData(row, tableInfo.loanGuaranteeFieldID));
-    ui->belongingEdit->setText(getTableData(row, tableInfo.belongingFieldID));
-    ui->amountEdit->setText(getTableData(row, tableInfo.amountFieldID));
-    ui->regionEdit->setText(getTableData(row, tableInfo.regionFieldID));
-    ui->placeEdit->setText(getTableData(row, tableInfo.placeFieldID));
-    ui->contactEdit->setText(getTableData(row, tableInfo.contactFieldID));
-
-    QString photoPath = getTableData(row, tableInfo.photoFieldID);
-    showPhoto(photoPath);
-    if (!photoPath.startsWith(":"))
-        photoData = readFile(photoPath);
-
-    prepare();
+    showPhoto();
+    oldPhotoFilepath = ui->photoEdit->text();
 }
 
 AddRecordDlg::~AddRecordDlg()
 {
-    delete ui;
 }
 
-void AddRecordDlg::edit()
+void AddRecordDlg::accepted()
 {
-    if (row < 0)
-    {
-        row = 0;
-        bool inserted = model->insertRow(row);
+    if (ui->photoEdit->text().startsWith(":"))
+        return;
 
-        if (!inserted)
+    if (photoPixmap.isNull())
+    {
+        removePhoto();
+        return;
+    }
+
+    QByteArray photoData;
+    QBuffer photoBuffer(&photoData);
+    photoBuffer.open(QIODevice::WriteOnly);
+    photoPixmap.save(&photoBuffer, "PNG");
+
+    QCryptographicHash hash(QCryptographicHash::Sha3_256);
+    hash.addData(photoData);
+    QByteArray hashData = hash.result();
+    QString hashString(hashData.toHex());
+    QString currentTime = QString::number(QDateTime::currentDateTime().toTime_t());
+    QString photoFilepath = "photos/" + hashString + "." + currentTime;
+    ui->photoEdit->setText(photoFilepath);
+
+    if (!oldPhotoFilepath.isEmpty() && !oldPhotoFilepath.startsWith(":"))
+        QFile::remove(oldPhotoFilepath);
+
+    if (QFile(photoFilepath).exists())
+    {
+        QFile photoFile(photoFilepath);
+        if (!photoFile.open(QFile::ReadOnly))
         {
-            QMessageBox::critical(this,
-                                  tr("Add record"),
-                                  tr("Can not insert new row. Error: ") + model->lastError().text());
+            QMessageBox::critical(this, tr("Add record"), tr("Can not read file: ") + photoFilepath);
+            removePhoto();
+            return;
+        }
+        QByteArray photoData2 = photoFile.readAll();
+        if (photoData != photoData2)
+        {
+            QMessageBox::warning(this, tr("Add record"), tr("Photo already exists: ") + photoFilepath);
+            removePhoto();
+            return;
+        }
+        else
+        {
             return;
         }
     }
 
-    TableInfo tableInfo;
-
-    setTableData(row, tableInfo.nameFieldID, ui->nameEdit->text());
-    setTableData(row, tableInfo.surnameFieldID, ui->surnameEdit->text());
-    setTableData(row, tableInfo.patronymicFieldID, ui->patronymicEdit->text());
-    setTableData(row, tableInfo.photoFieldID, writePhotoAndGetName());
-    setTableData(row, tableInfo.activityFieldID, ui->activityEdit->text());
-    setTableData(row, tableInfo.loanGuaranteeFieldID, ui->loanGuaranteeEdit->text());
-    setTableData(row, tableInfo.belongingFieldID, ui->belongingEdit->text());
-    setTableData(row, tableInfo.amountFieldID, ui->amountEdit->text());
-    setTableData(row, tableInfo.regionFieldID, ui->regionEdit->text());
-    setTableData(row, tableInfo.placeFieldID, ui->placeEdit->text());
-    setTableData(row, tableInfo.contactFieldID, ui->contactEdit->text());
-
-    bool submitted = model->submitAll();
-    if (!submitted)
+    QFile photoFile(photoFilepath);
+    if (!photoFile.open(QFile::WriteOnly))
     {
-        QMessageBox::critical(this,
-                              tr("Add record"),
-                              tr("Can not submit changes. Error: ") + model->lastError().text());
+        QMessageBox::warning(this, tr("Add record"), tr("Can not write photo"));
+        removePhoto();
         return;
     }
+    photoFile.write(photoData);
+}
+
+void AddRecordDlg::removePhoto()
+{
+    photoPixmap = QPixmap();
+    ui->photoEdit->setText(":/img/nophoto.png");
+    showPhoto();
 }
 
 void AddRecordDlg::loadPhoto()
@@ -105,96 +118,61 @@ void AddRecordDlg::loadPhoto()
     if (fileName.isEmpty())
         return;
 
-    photoData = readFile(fileName);
-    if (photoData.isNull())
-    {
-        QMessageBox::critical(this, tr("Add record"), tr("Can not read photo"));
-        showPhoto(noPhotoFilename);
-        return;
-    }
-
-    showPhoto(photoData);
+    ui->photoEdit->setText(fileName);
+    bool showed = showPhoto();
+    if (!showed)
+        removePhoto();
 }
 
-void AddRecordDlg::removePhoto()
+void AddRecordDlg::prepareDlg()
 {
-    photoData.clear();
-    showPhoto(noPhotoFilename);
-}
+    BorrowerTableInfo tableInfo;
 
-void AddRecordDlg::prepare()
-{
-    int maxInt = std::numeric_limits<int>::max();
-    ui->amountEdit->setValidator(new QIntValidator(0, maxInt, this));
+    QSqlTableModel *regionModel = model->relationModel(tableInfo.regionFieldID);
+    ui->regionComboBox->setModel(regionModel);
+    ui->regionComboBox->setModelColumn(regionModel->fieldIndex("name"));
 
-    connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(edit()));
-    connect(ui->loadPhotoButton, SIGNAL(clicked()), this, SLOT(loadPhoto()));
+    QSqlTableModel *belongingModel = model->relationModel(tableInfo.belongingFieldID);
+    ui->belonginComboBox->setModel(belongingModel);
+    ui->belonginComboBox->setModelColumn(belongingModel->fieldIndex("description"));
+
+    mapper = new QDataWidgetMapper(this);
+    mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
+    mapper->setModel(model);
+    mapper->setItemDelegate(new QSqlRelationalDelegate(this));
+
+    mapper->addMapping(ui->nameEdit, tableInfo.nameFieldID);
+    mapper->addMapping(ui->surnameEdit, tableInfo.surnameFieldID);
+    mapper->addMapping(ui->patronymicEdit, tableInfo.patronymicFieldID);
+    mapper->addMapping(ui->photoEdit, tableInfo.photoFieldID);
+    mapper->addMapping(ui->activityEdit, tableInfo.activityFieldID);
+    mapper->addMapping(ui->loanGuaranteeEdit, tableInfo.loanGuaranteeFieldID);
+    mapper->addMapping(ui->belonginComboBox, tableInfo.belongingFieldID);
+    mapper->addMapping(ui->amountEdit, tableInfo.amountFieldID);
+    mapper->addMapping(ui->regionComboBox, tableInfo.regionFieldID);
+    mapper->addMapping(ui->placeEdit, tableInfo.placeFieldID);
+    mapper->addMapping(ui->contactEdit, tableInfo.contactFieldID);
+
+    ui->photoEdit->setVisible(false);
+    ui->amountEdit->setValidator(new QIntValidator(0, 999999999, this));
+    connect(this, SIGNAL(accepted()), this, SLOT(accepted()));
+    connect(this, SIGNAL(accepted()), mapper, SLOT(submit()));
+    connect(this, SIGNAL(accepted()), model, SLOT(submitAll()));
+    connect(this, SIGNAL(rejected()), model, SLOT(revertAll()));
+
     connect(ui->removePhotoButton, SIGNAL(clicked()), this, SLOT(removePhoto()));
+    connect(ui->loadPhotoButton, SIGNAL(clicked()), this, SLOT(loadPhoto()));
 }
 
-QString AddRecordDlg::getTableData(int row, int id)
+bool AddRecordDlg::showPhoto()
 {
-    QModelIndex index = model->index(row, id);
-    return model->data(index).toString();
-}
+    photoPixmap = QPixmap(ui->photoEdit->text());
+    QPixmap pixmap = photoPixmap;
 
-void AddRecordDlg::setTableData(int row, int id, const QString &data)
-{
-    QModelIndex index = model->index(row, id);
-    model->setData(index, data.trimmed());
-}
-
-QString AddRecordDlg::writePhotoAndGetName()
-{
-    if (photoData.isNull())
-    {
-        return noPhotoFilename;
-    }
-    else
-    {
-        QString photoName = getHash(photoData);
-        QString photoFilename = "photos/" + photoName;
-
-        if (QFile(photoFilename).exists())
-        {
-            QByteArray photoData2 = readFile(photoFilename);
-            if (photoData != photoData2)
-            {
-                QMessageBox::warning(this, tr("Add record"), tr("Photo already exists: ") + photoFilename);
-            }
-            return photoFilename;
-        }
-
-        QFile photoFile(photoFilename);
-        if (!photoFile.open(QFile::WriteOnly))
-        {
-            QMessageBox::warning(this, tr("Add record"), tr("Can not write photo"));
-            return noPhotoFilename;
-        }
-        photoFile.write(photoData);
-        return photoFilename;
-    }
-}
-
-void AddRecordDlg::showPhoto(const QString &fileName)
-{
-    QPixmap pixmap(fileName);
-    showPhoto(pixmap);
-}
-
-void AddRecordDlg::showPhoto(const QByteArray &data)
-{
-    QPixmap pixmap;
-    pixmap.loadFromData(data);
-    showPhoto(pixmap);
-}
-
-void AddRecordDlg::showPhoto(const QPixmap &pixmap)
-{
     if (pixmap.isNull())
     {
         QMessageBox::critical(this, tr("Add record"), tr("Invalid photo data"));
-        return;
+        return false;
     }
 
     QSize pixmapSize = pixmap.size();
@@ -211,23 +189,6 @@ void AddRecordDlg::showPhoto(const QPixmap &pixmap)
     }
 
     ui->photoLabel->adjustSize();
-}
 
-QByteArray AddRecordDlg::readFile(const QString &fileName)
-{
-    QFile file(fileName);
-    if (!file.open(QFile::ReadOnly))
-    {
-        QMessageBox::critical(this, tr("Add record"), tr("Can not read file ") + fileName);
-        return "";
-    }
-    return file.readAll();
-}
-
-QString AddRecordDlg::getHash(const QByteArray &data)
-{
-    QCryptographicHash hash(QCryptographicHash::Sha3_256);
-    hash.addData(data);
-    QByteArray hashData = hash.result();
-    return QString(hashData.toHex());
+    return true;
 }

@@ -3,9 +3,9 @@
 #include <QLabel>
 #include <QToolButton>
 #include "AbstractFilterWidget.h"
-#include "IntegerFilterWidget.h"
+#include "IntFilterWidget.h"
 #include "SortFilterProxyModel.h"
-#include "TableInfo.h"
+#include "BorrowerTableInfo.h"
 #include "TextFilterWidget.h"
 
 FiltersContainerWidget::FiltersContainerWidget(SortFilterProxyModel *model, QWidget *parent) :
@@ -15,7 +15,7 @@ FiltersContainerWidget::FiltersContainerWidget(SortFilterProxyModel *model, QWid
 {
     ui->setupUi(this);
 
-    TableInfo tableInfo;
+    BorrowerTableInfo tableInfo;
     QStringList filterNames;
     filterNames << tableInfo.nameFieldAlias
                 << tableInfo.surnameFieldAlias
@@ -45,8 +45,6 @@ FiltersContainerWidget::~FiltersContainerWidget()
 
 void FiltersContainerWidget::filter()
 {
-    emit beforeFilter();
-
     model->resetTextMatchers();
 
     foreach (AbstractFilterWidget *filterWidget, filtersWidgets)
@@ -58,7 +56,7 @@ void FiltersContainerWidget::filter()
 
     model->invalidate();
 
-    emit afterFilter();
+    emit filteringComplete();
 }
 
 void FiltersContainerWidget::addFilterWidget()
@@ -114,7 +112,7 @@ bool FiltersContainerWidget::isFilterWidgetPresent(const QString &filterName)
 
 AbstractFilterWidget* FiltersContainerWidget::createFilterWidget(const QString &filterName)
 {
-    TableInfo tableInfo;
+    BorrowerTableInfo tableInfo;
 
     QMap<QString, QString> nameTypeMap = tableInfo.getNameTypeMap();
     QMap<QString, QString> nameAliasMap = tableInfo.getNameAliasMap();

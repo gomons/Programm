@@ -7,7 +7,7 @@ namespace Ui {
 class MainWindow;
 }
 
-class QSqlTableModel;
+class QSqlRelationalTableModel;
 
 class TableViewWidget;
 class SortFilterProxyModel;
@@ -23,14 +23,17 @@ public:
     ~MainWindow();
 
 public slots:
-    void addRecord();
-    void removeRecord();
-    void showFilters();
-    void showAbout();
+    void removeRecords();
+    void showAddRecordDlg();
+    void showEditRecordDlg(int row);
+    void showViewRecordDlg(int row);
+    void showFilterDlg();
+    void showSelectHeaderFieldsDlg();
+    void showAboutDlg();
 
 private:
     Ui::MainWindow *ui;
-    QSqlTableModel *model;
+    QSqlRelationalTableModel *model;
     SortFilterProxyModel *proxyModel;
     TableViewWidget *tableViewWidget;
     FilterDlg *filterDlg;

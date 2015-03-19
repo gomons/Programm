@@ -5,14 +5,11 @@
 #include <QMap>
 #include "AbstractFilterWidget.h"
 
-class TableInfo
+class BorrowerTableInfo
 {
 public:
-    TableInfo();
-    ~TableInfo();
-
-
-    QString getCreateTableQuery() const;
+    BorrowerTableInfo();
+    ~BorrowerTableInfo();
 
     QList<int> getIds() const;
     QStringList getNames() const;

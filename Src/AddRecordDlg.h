@@ -2,47 +2,38 @@
 #define ADDRECORDDLG_H
 
 #include <QDialog>
+#include <QPixmap>
 
 namespace Ui {
 class AddRecordDlg;
 }
 
-class QSqlTableModel;
+class QSqlRelationalTableModel;
+class QDataWidgetMapper;
 
 class AddRecordDlg : public QDialog
 {
     Q_OBJECT
 
 public:
-    AddRecordDlg(QSqlTableModel *model, QWidget *parent = 0);
-    AddRecordDlg(QSqlTableModel *model, int row, QWidget *parent = 0);
+    AddRecordDlg(QSqlRelationalTableModel *model, QWidget *parent = 0);
+    AddRecordDlg(QSqlRelationalTableModel *model, int row, QWidget *parent = 0);
     ~AddRecordDlg();
 
 private slots:
-    void edit();
-    void loadPhoto();
+    void accepted();
     void removePhoto();
+    void loadPhoto();
 
 private:
-    void prepare();
-    QString getTableData(int row, int id);
-    void setTableData(int row, int id, const QString &data);
-
-    QString writePhotoAndGetName();
-
-    void showPhoto(const QString &fileName);
-    void showPhoto(const QByteArray &data);
-    void showPhoto(const QPixmap &pixmap);
-
-    QByteArray readFile(const QString &fileName);
-    QString getHash(const QByteArray &data);
+    void prepareDlg();
+    bool showPhoto();
 
     Ui::AddRecordDlg *ui;
-    QSqlTableModel *model;
-    int row;
-    QByteArray photoData;
-
-    const QString noPhotoFilename;
+    QSqlRelationalTableModel *model;
+    QDataWidgetMapper *mapper;
+    QPixmap photoPixmap;
+    QString oldPhotoFilepath;
 };
 
 #endif // ADDRECORDDLG_H

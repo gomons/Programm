@@ -1,12 +1,12 @@
-#include "IntegerFilterWidget.h"
-#include "ui_IntegerFilterWidget.h"
+#include "IntFilterWidget.h"
+#include "ui_IntFilterWidget.h"
 #include <limits>
 #include <QIntValidator>
 #include "IntRangeTextMatcher.h"
 
 IntegerFilterWidget::IntegerFilterWidget(QWidget *parent) :
     AbstractFilterWidget(parent),
-    ui(new Ui::IntegerFilterWidget)
+    ui(new Ui::IntFilterWidget)
 {
     ui->setupUi(this);
 

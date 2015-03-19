@@ -10,7 +10,7 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QTranslator>
-#include "TableInfo.h"
+#include "BorrowerTableInfo.h"
 
 namespace {
 
@@ -70,6 +70,7 @@ bool backupDatabase()
             return false;
         }
     }
+
     return true;
 }
 
@@ -95,21 +96,91 @@ bool initDatabase()
         return false;
     }
 
-
-    QSqlQuery query;
-    bool tableCreated = query.exec(TableInfo().getCreateTableQuery());
-    if (!tableCreated)
     {
-        QMessageBox::critical(nullptr,
-                              QObject::tr("Database error."),
-                              QObject::tr("Table 'borrower' is not created. Error: ") + query.lastError().text());
-        return false;
+        if (!db.tables().contains("region"))
+        {
+            QString createRegionsTableQuery = "CREATE TABLE IF NOT EXISTS region ("
+                                              "id INTEGER PRIMARY KEY,"
+                                              "name TEXT);";
+            QSqlQuery query;
+            bool tableCreated = query.exec(createRegionsTableQuery);
+            if (!tableCreated)
+            {
+                QMessageBox::critical(nullptr,
+                                      QObject::tr("Database error."),
+                                      QObject::tr("Table 'region' is not created. Error: ") + query.lastError().text());
+                return false;
+            }
+
+            QString insertQuery = "INSERT INTO region (name) VALUES ('%1');";
+            query.exec(insertQuery.arg("г. Минск"));
+            query.exec(insertQuery.arg("Брестская область"));
+            query.exec(insertQuery.arg("Витебская область"));
+            query.exec(insertQuery.arg("Гомельская область"));
+            query.exec(insertQuery.arg("Гродненская область"));
+            query.exec(insertQuery.arg("Минская область"));
+            query.exec(insertQuery.arg("Могилёвская область"));
+        }
+
+        if (!db.tables().contains("belonging"))
+        {
+            QString createRegionsTableQuery = "CREATE TABLE IF NOT EXISTS belonging ("
+                                              "id INTEGER PRIMARY KEY,"
+                                              "description TEXT);";
+            QSqlQuery query;
+            bool tableCreated = query.exec(createRegionsTableQuery);
+            if (!tableCreated)
+            {
+                QMessageBox::critical(nullptr,
+                                      QObject::tr("Database error."),
+                                      QObject::tr("Table 'belonging' is not created. Error: ") + query.lastError().text());
+                return false;
+            }
+
+            QString insertQuery = "INSERT INTO belonging (description) VALUES ('%1');";
+            auto inserted = query.exec(insertQuery.arg("Владелец личного подсобного хозяйства"));
+            inserted = query.exec(insertQuery.arg("Субъект агроэкотуризма"));
+            inserted = query.exec(insertQuery.arg("Ремесленник"));
+            inserted = query.exec(insertQuery.arg("Фермер"));
+            inserted = query.exec(insertQuery.arg("Учредитель коммерческой организации"));
+            inserted = query.exec(insertQuery.arg("Индивидуальный предприниматель"));
+        }
+    }
+
+    {
+        QString createBorrowerTableQuery = "CREATE TABLE IF NOT EXISTS borrower ("
+                                           "id INTEGER PRIMARY KEY,"
+                                           "name TEXT,"
+                                           "surname TEXT,"
+                                           "patronymic TEXT, "
+                                           "photo TEXT, "
+                                           "activity TEXT, "
+                                           "loan_guarantee TEXT,"
+                                           "belonging_id TEXT,"
+                                           "amount INTEGER,"
+                                           "region_id INTEGER,"
+                                           "place TEXT,"
+                                           "contact TEXT,"
+                                           "FOREIGN KEY(region_id) REFERENCES region(id),"
+                                           "FOREIGN KEY(belonging_id) REFERENCES belonging(id)"
+                                           ");";
+
+        QSqlQuery query;
+        bool tableCreated = query.exec(createBorrowerTableQuery);
+        if (!tableCreated)
+        {
+            QMessageBox::critical(nullptr,
+                                  QObject::tr("Database error."),
+                                  QObject::tr("Table 'borrower' is not created. Error: ") + query.lastError().text());
+            return false;
+        }
     }
 
     return true;
 }
 
 } // namespace
+
 
 int main(int argc, char *argv[])
 {
@@ -119,13 +190,13 @@ int main(int argc, char *argv[])
     QSplashScreen splash(pixmap);
     splash.show();
 
-    QTranslator programmTranslator;
-    programmTranslator.load(":/translate/Programm_ru.qm");
-    a.installTranslator(&programmTranslator);
+//    QTranslator programmTranslator;
+//    programmTranslator.load(":/translate/Programm_ru.qm");
+//    a.installTranslator(&programmTranslator);
 
-    QTranslator qtTranslator;
-    qtTranslator.load("qt_ru", QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-    a.installTranslator(&qtTranslator);
+//    QTranslator qtTranslator;
+//    qtTranslator.load("qt_ru", QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+//    a.installTranslator(&qtTranslator);
 
     if (!initPhotosDir())
         return 1;
@@ -142,6 +213,10 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
     splash.finish(&w);
+
+//    TestDialog dlg;
+//    dlg.show();
+//    splash.finish(&dlg);
 
     return a.exec();
 }

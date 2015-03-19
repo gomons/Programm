@@ -14,7 +14,7 @@
    <string>Programm</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="resources.qrc">
+   <iconset>
     <normaloff>:/photos/nophoto.png</normaloff>:/photos/nophoto.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -105,12 +105,12 @@
   </widget>
   <action name="selectHeadersAction">
    <property name="text">
-    <string>Select headers...</string>
+    <string>Select headers</string>
    </property>
   </action>
   <action name="filterAction">
    <property name="text">
-    <string>Filter...</string>
+    <string>Filter</string>
    </property>
   </action>
   <action name="exitAction">
@@ -120,7 +120,7 @@
   </action>
   <action name="aboutAction">
    <property name="text">
-    <string>About...</string>
+    <string>About</string>
    </property>
   </action>
   <action name="englishAction">
@@ -144,8 +144,6 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
