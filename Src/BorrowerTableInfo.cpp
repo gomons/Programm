@@ -37,9 +37,9 @@ BorrowerTableInfo::BorrowerTableInfo() :
     photoFieldName("photo"),
     activityFieldName("activity"),
     loanGuaranteeFieldName("loan_guarantee"),
-    belongingFieldName("belonging"),
+    belongingFieldName("belonging_id"),
     amountFieldName("amount"),
-    regionFieldName("region"),
+    regionFieldName("region_id"),
     placeFieldName("place"),
     contactFieldName("contact"),
 

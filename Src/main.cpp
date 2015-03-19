@@ -74,7 +74,7 @@ bool backupDatabase(QMainWindow *w)
     return true;
 }
 
-bool initDatabase(QMainWindow *w)
+bool openDatabase(QMainWindow *w)
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     bool valid = db.isValid();
@@ -96,85 +96,142 @@ bool initDatabase(QMainWindow *w)
         return false;
     }
 
+    return true;
+}
+
+bool createRegionTable(QMainWindow *w)
+{
+    QSqlDatabase db;
+
+    if (db.tables().contains("region"))
+        return true;
+
+    QString createRegionsTableQuery = "CREATE TABLE IF NOT EXISTS region ("
+                                      "id INTEGER PRIMARY KEY,"
+                                      "name TEXT"
+                                      ");";
+    QSqlQuery query;
+    bool tableCreated = query.exec(createRegionsTableQuery);
+    if (!tableCreated)
     {
-        if (!db.tables().contains("region"))
-        {
-            QString createRegionsTableQuery = "CREATE TABLE IF NOT EXISTS region ("
-                                              "id INTEGER PRIMARY KEY,"
-                                              "name TEXT);";
-            QSqlQuery query;
-            bool tableCreated = query.exec(createRegionsTableQuery);
-            if (!tableCreated)
-            {
-                QMessageBox::critical(w,
-                                      QObject::tr("Database error."),
-                                      QObject::tr("Table 'region' is not created. Error: ") + query.lastError().text());
-                return false;
-            }
-
-            QString insertQuery = "INSERT INTO region (name) VALUES ('%1');";
-            query.exec(insertQuery.arg("г. Минск"));
-            query.exec(insertQuery.arg("Брестская область"));
-            query.exec(insertQuery.arg("Витебская область"));
-            query.exec(insertQuery.arg("Гомельская область"));
-            query.exec(insertQuery.arg("Гродненская область"));
-            query.exec(insertQuery.arg("Минская область"));
-            query.exec(insertQuery.arg("Могилёвская область"));
-        }
-
-        if (!db.tables().contains("belonging"))
-        {
-            QString createRegionsTableQuery = "CREATE TABLE IF NOT EXISTS belonging ("
-                                              "id INTEGER PRIMARY KEY,"
-                                              "description TEXT);";
-            QSqlQuery query;
-            bool tableCreated = query.exec(createRegionsTableQuery);
-            if (!tableCreated)
-            {
-                QMessageBox::critical(w,
-                                      QObject::tr("Database error."),
-                                      QObject::tr("Table 'belonging' is not created. Error: ") + query.lastError().text());
-                return false;
-            }
-
-            QString insertQuery = "INSERT INTO belonging (description) VALUES ('%1');";
-            auto inserted = query.exec(insertQuery.arg("Владелец личного подсобного хозяйства"));
-            inserted = query.exec(insertQuery.arg("Субъект агроэкотуризма"));
-            inserted = query.exec(insertQuery.arg("Ремесленник"));
-            inserted = query.exec(insertQuery.arg("Фермер"));
-            inserted = query.exec(insertQuery.arg("Учредитель коммерческой организации"));
-            inserted = query.exec(insertQuery.arg("Индивидуальный предприниматель"));
-        }
+        QMessageBox::critical(w,
+                              QObject::tr("Database error."),
+                              QObject::tr("Table 'region' is not created. Error: ") + query.lastError().text());
+        return false;
     }
 
-    {
-        QString createBorrowerTableQuery = "CREATE TABLE IF NOT EXISTS borrower ("
-                                           "id INTEGER PRIMARY KEY,"
-                                           "name TEXT,"
-                                           "surname TEXT,"
-                                           "patronymic TEXT, "
-                                           "photo TEXT, "
-                                           "activity TEXT, "
-                                           "loan_guarantee TEXT,"
-                                           "belonging_id TEXT,"
-                                           "amount INTEGER,"
-                                           "region_id INTEGER,"
-                                           "place TEXT,"
-                                           "contact TEXT,"
-                                           "FOREIGN KEY(region_id) REFERENCES region(id),"
-                                           "FOREIGN KEY(belonging_id) REFERENCES belonging(id)"
-                                           ");";
+    bool inserted = true;
 
-        QSqlQuery query;
-        bool tableCreated = query.exec(createBorrowerTableQuery);
-        if (!tableCreated)
-        {
-            QMessageBox::critical(w,
-                                  QObject::tr("Database error."),
-                                  QObject::tr("Table 'borrower' is not created. Error: ") + query.lastError().text());
-            return false;
-        }
+    QString insertQuery = "INSERT INTO region (name) VALUES ('%1');";
+    inserted |= query.exec(insertQuery.arg("г. Минск"));
+    inserted |= query.exec(insertQuery.arg("Брестская область"));
+    inserted |= query.exec(insertQuery.arg("Витебская область"));
+    inserted |= query.exec(insertQuery.arg("Гомельская область"));
+    inserted |= query.exec(insertQuery.arg("Гродненская область"));
+    inserted |= query.exec(insertQuery.arg("Минская область"));
+    inserted |= query.exec(insertQuery.arg("Могилёвская область"));
+
+    if (!inserted)
+    {
+        QMessageBox::critical(w,
+                              QObject::tr("Database error."),
+                              QObject::tr("Table 'region' not populated.") + query.lastError().text());
+        return false;
     }
+
+    return true;
+}
+
+bool createBelongingTable(QMainWindow *w)
+{
+    QSqlDatabase db;
+
+    if (db.tables().contains("belonging"))
+        return true;
+
+    QString createRegionsTableQuery = "CREATE TABLE IF NOT EXISTS belonging ("
+                                      "id INTEGER PRIMARY KEY,"
+                                      "description TEXT);";
+    QSqlQuery query;
+    bool tableCreated = query.exec(createRegionsTableQuery);
+    if (!tableCreated)
+    {
+        QMessageBox::critical(w,
+                              QObject::tr("Database error."),
+                              QObject::tr("Table 'belonging' is not created. Error: ") + query.lastError().text());
+        return false;
+    }
+
+    bool inserted = true;
+
+    QString insertQuery = "INSERT INTO belonging (description) VALUES ('%1');";
+    inserted |= query.exec(insertQuery.arg("Владелец личного подсобного хозяйства"));
+    inserted |= query.exec(insertQuery.arg("Субъект агроэкотуризма"));
+    inserted |= query.exec(insertQuery.arg("Ремесленник"));
+    inserted |= query.exec(insertQuery.arg("Фермер"));
+    inserted |= query.exec(insertQuery.arg("Учредитель коммерческой организации"));
+    inserted |= query.exec(insertQuery.arg("Индивидуальный предприниматель"));
+
+    if (!inserted)
+    {
+        QMessageBox::critical(w,
+                              QObject::tr("Database error."),
+                              QObject::tr("Table 'belonging' not populated.") + query.lastError().text());
+        return false;
+    }
+
+    return true;
+}
+
+bool createBorrowerTable(QMainWindow *w)
+{
+    QString createBorrowerTableQuery = "CREATE TABLE IF NOT EXISTS borrower ("
+                                       "id INTEGER PRIMARY KEY,"
+                                       "name TEXT,"
+                                       "surname TEXT,"
+                                       "patronymic TEXT, "
+                                       "photo TEXT, "
+                                       "activity TEXT, "
+                                       "loan_guarantee TEXT,"
+                                       "belonging_id TEXT,"
+                                       "amount INTEGER,"
+                                       "region_id INTEGER,"
+                                       "place TEXT,"
+                                       "contact TEXT,"
+                                       "FOREIGN KEY(region_id) REFERENCES region(id),"
+                                       "FOREIGN KEY(belonging_id) REFERENCES belonging(id)"
+                                       ");";
+
+    QSqlQuery query;
+    bool tableCreated = query.exec(createBorrowerTableQuery);
+    if (!tableCreated)
+    {
+        QMessageBox::critical(w,
+                              QObject::tr("Database error."),
+                              QObject::tr("Table 'borrower' is not created. Error: ") + query.lastError().text());
+        return false;
+    }
+
+    return true;
+}
+
+bool initDatabase(QMainWindow *w)
+{
+    bool opened = openDatabase(w);
+    if (!opened)
+        return false;
+
+    bool created = createRegionTable(w);
+    if (!created)
+        return false;
+
+    created = createBelongingTable(w);
+    if (!created)
+        return false;
+
+    created = createBorrowerTable(w);
+    if (!created)
+        return false;
 
     return true;
 }
