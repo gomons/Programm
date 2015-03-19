@@ -21,6 +21,8 @@ public:
                              QWidget *parent = 0);
     ~TableViewWidget();
 
+    void retranslate();
+
     void showOnlyHeaders(const QStringList& names);
     QStringList getShownHeaders();
 

@@ -21,6 +21,8 @@ public:
     explicit FiltersContainerWidget(SortFilterProxyModel *model, QWidget *parent = 0);
     ~FiltersContainerWidget();
 
+    void retranslate();
+
 signals:
     void filteringComplete();
 
@@ -30,6 +32,7 @@ private slots:
     void removeFilterWidget(const QString& filterName);
 
 private:
+    void fillFiltersComboBox();
     bool isFilterWidgetPresent(const QString &filterName);
     AbstractFilterWidget* createFilterWidget(const QString &filterName);
 

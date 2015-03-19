@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTranslator>
 
 namespace Ui {
 class MainWindow;
@@ -22,8 +23,11 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    bool init();
+
 public slots:
     void removeRecords();
+
     void showAddRecordDlg();
     void showEditRecordDlg(int row);
     void showViewRecordDlg(int row);
@@ -31,12 +35,18 @@ public slots:
     void showSelectHeaderFieldsDlg();
     void showAboutDlg();
 
+    void translateToEnglish();
+    void transletToRussion();
+
 private:
     Ui::MainWindow *ui;
     QSqlRelationalTableModel *model;
     SortFilterProxyModel *proxyModel;
     TableViewWidget *tableViewWidget;
     FilterDlg *filterDlg;
+
+    QTranslator programmTranslator;
+    QTranslator qtTranslator;
 };
 
 #endif // MAINWINDOW_H

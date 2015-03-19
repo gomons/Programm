@@ -18,6 +18,8 @@ public:
     explicit FilterDlg(SortFilterProxyModel *model, QWidget *parent = 0);
     ~FilterDlg();
 
+    void retranslate();
+
 private:
     Ui::FilterDlg *ui;
     FiltersContainerWidget *filtersContainerWidget;

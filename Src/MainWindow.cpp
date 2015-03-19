@@ -1,9 +1,11 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
+#include <QActionGroup>
 #include <QFile>
 #include <QMessageBox>
 #include <QSqlError>
 #include <QSqlRelationalTableModel>
+#include <QTranslator>
 #include "AboutDlg.h"
 #include "AddRecordDlg.h"
 #include "FilterDlg.h"
@@ -18,11 +20,19 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+}
 
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+bool MainWindow::init()
+{
     BorrowerTableInfo tableInfo;
 
     model = new QSqlRelationalTableModel(this);
-    model->setTable(tableInfo.tableName);
+    model->setTable("borrower");
     model->setRelation(tableInfo.regionFieldID, QSqlRelation("region", "id", "name"));
     model->setRelation(tableInfo.belongingFieldID, QSqlRelation("belonging", "id", "description"));
     model->setEditStrategy(QSqlRelationalTableModel::OnManualSubmit);
@@ -57,11 +67,28 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->aboutAction,            SIGNAL(triggered()),            this,   SLOT(showAboutDlg()));
     connect(ui->exitAction,             SIGNAL(triggered()),            this,   SLOT(close()));
     connect(ui->filterAction,           SIGNAL(triggered()),            this,   SLOT(showFilterDlg()));
-}
 
-MainWindow::~MainWindow()
-{
-    delete ui;
+    ui->toolBar->addAction(ui->selectHeadersAction);
+    ui->toolBar->addAction(ui->filterAction);
+
+    {
+        programmTranslator.load(":/translate/Programm_ru.qm");
+        qtTranslator.load(":/translate/qtbase_ru");
+
+        QActionGroup* group = new QActionGroup(this);
+        group->addAction(ui->englishAction);
+        group->addAction(ui->russianAction);
+
+        if (ui->englishAction->isChecked())
+            translateToEnglish();
+        else if (ui->russianAction->isChecked())
+            transletToRussion();
+
+        connect(ui->englishAction, SIGNAL(triggered()), this, SLOT(translateToEnglish()));
+        connect(ui->russianAction, SIGNAL(triggered()), this, SLOT(transletToRussion()));
+    }
+
+    return true;
 }
 
 void MainWindow::removeRecords()
@@ -147,4 +174,24 @@ void MainWindow::showAboutDlg()
 {
     AboutDlg dlg(this);
     dlg.exec();
+}
+
+void MainWindow::translateToEnglish()
+{
+    QApplication::removeTranslator(&programmTranslator);
+    QApplication::removeTranslator(&qtTranslator);
+
+    ui->retranslateUi(this);
+    filterDlg->retranslate();
+    tableViewWidget->retranslate();
+}
+
+void MainWindow::transletToRussion()
+{
+    QApplication::installTranslator(&programmTranslator);
+    QApplication::installTranslator(&qtTranslator);
+
+    ui->retranslateUi(this);
+    filterDlg->retranslate();
+    tableViewWidget->retranslate();
 }

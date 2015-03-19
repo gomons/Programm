@@ -9,6 +9,8 @@ CONFIG += c++11
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+VERSION = 1.0.0
+
 TARGET = Programm
 TEMPLATE = app
 

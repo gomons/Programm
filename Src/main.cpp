@@ -18,14 +18,14 @@ QString dbFileName = "programm.sqlite";
 QString photoDirname = "photos";
 QString backupDirname = "backups";
 
-bool initPhotosDir()
+bool initPhotosDir(QMainWindow *w)
 {
     if (!QDir(photoDirname).exists())
     {
         bool created = QDir().mkdir(photoDirname);
         if (!created)
         {
-            QMessageBox::critical(nullptr,
+            QMessageBox::critical(w,
                                   QObject::tr("Filesystem error."),
                                   QObject::tr("Photos directory can not be created."));
             return false;
@@ -35,14 +35,14 @@ bool initPhotosDir()
     return true;
 }
 
-bool initBackupsDir()
+bool initBackupsDir(QMainWindow  *w)
 {
     if (!QDir(backupDirname).exists())
     {
         bool created = QDir().mkdir(backupDirname);
         if (!created)
         {
-            QMessageBox::critical(nullptr,
+            QMessageBox::critical(w,
                                   QObject::tr("Filesystem error."),
                                   QObject::tr("Backups directory can not be created."));
             return false;
@@ -52,7 +52,7 @@ bool initBackupsDir()
     return true;
 }
 
-bool backupDatabase()
+bool backupDatabase(QMainWindow *w)
 {
     QFile dbFile(dbFileName);
 
@@ -64,7 +64,7 @@ bool backupDatabase()
         bool copyed = dbFile.copy(backupFilePath);
         if (!copyed)
         {
-            QMessageBox::critical(nullptr,
+            QMessageBox::critical(w,
                                   QObject::tr("Filesystem error."),
                                   QObject::tr("Can not copy backup. Error: ") + dbFile.errorString());
             return false;
@@ -74,13 +74,13 @@ bool backupDatabase()
     return true;
 }
 
-bool initDatabase()
+bool initDatabase(QMainWindow *w)
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     bool valid = db.isValid();
     if (!valid)
     {
-        QMessageBox::critical(nullptr,
+        QMessageBox::critical(w,
                               QObject::tr("Database error."),
                               QObject::tr("Database is not loaded. Error: ") + db.lastError().text());
         return false;
@@ -90,7 +90,7 @@ bool initDatabase()
     bool opened = db.open();
     if (!opened)
     {
-        QMessageBox::critical(nullptr,
+        QMessageBox::critical(w,
                               QObject::tr("Database error."),
                               QObject::tr("Database is not opened. Error: ") + db.lastError().text());
         return false;
@@ -106,7 +106,7 @@ bool initDatabase()
             bool tableCreated = query.exec(createRegionsTableQuery);
             if (!tableCreated)
             {
-                QMessageBox::critical(nullptr,
+                QMessageBox::critical(w,
                                       QObject::tr("Database error."),
                                       QObject::tr("Table 'region' is not created. Error: ") + query.lastError().text());
                 return false;
@@ -131,7 +131,7 @@ bool initDatabase()
             bool tableCreated = query.exec(createRegionsTableQuery);
             if (!tableCreated)
             {
-                QMessageBox::critical(nullptr,
+                QMessageBox::critical(w,
                                       QObject::tr("Database error."),
                                       QObject::tr("Table 'belonging' is not created. Error: ") + query.lastError().text());
                 return false;
@@ -169,7 +169,7 @@ bool initDatabase()
         bool tableCreated = query.exec(createBorrowerTableQuery);
         if (!tableCreated)
         {
-            QMessageBox::critical(nullptr,
+            QMessageBox::critical(w,
                                   QObject::tr("Database error."),
                                   QObject::tr("Table 'borrower' is not created. Error: ") + query.lastError().text());
             return false;
@@ -185,38 +185,29 @@ bool initDatabase()
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    MainWindow w;
 
     QPixmap pixmap(":/img/splash.png");
     QSplashScreen splash(pixmap);
     splash.show();
 
-//    QTranslator programmTranslator;
-//    programmTranslator.load(":/translate/Programm_ru.qm");
-//    a.installTranslator(&programmTranslator);
-
-//    QTranslator qtTranslator;
-//    qtTranslator.load("qt_ru", QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-//    a.installTranslator(&qtTranslator);
-
-    if (!initPhotosDir())
+    if (!initPhotosDir(&w))
         return 1;
 
-    if (!initBackupsDir())
+    if (!initBackupsDir(&w))
         return 1;
 
-    if (!backupDatabase())
+    if (!backupDatabase(&w))
         return 1;
 
-    if (!initDatabase())
+    if (!initDatabase(&w))
         return 1;
 
-    MainWindow w;
+    if (!w.init())
+        return 1;
+
     w.show();
     splash.finish(&w);
-
-//    TestDialog dlg;
-//    dlg.show();
-//    splash.finish(&dlg);
 
     return a.exec();
 }

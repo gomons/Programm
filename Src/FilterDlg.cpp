@@ -25,3 +25,9 @@ FilterDlg::~FilterDlg()
 {
     delete ui;
 }
+
+void FilterDlg::retranslate()
+{
+    ui->retranslateUi(this);
+    filtersContainerWidget->retranslate();
+}

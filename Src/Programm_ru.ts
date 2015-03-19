@@ -4,17 +4,17 @@
 <context>
     <name>AboutDlg</name>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AboutDlg.ui" line="26"/>
+        <location filename="AboutDlg.ui" line="26"/>
         <source>About</source>
         <translation>О программе</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AboutDlg.ui" line="57"/>
+        <location filename="AboutDlg.ui" line="57"/>
         <source>Based on Qt 5.4.1</source>
-        <translation>Реализовано с использованием Qt 5.4.1</translation>
+        <translation>Основано на Qt 5.4.1</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AboutDlg.ui" line="94"/>
+        <location filename="AboutDlg.ui" line="94"/>
         <source>&lt;a href=&quot;https://github.com/gomons/Programm&quot;&gt;Visit project page&lt;a/&gt;</source>
         <translation>&lt;a href=&quot;https://github.com/gomons/Programm&quot;&gt;Сайт проекта&lt;a/&gt;</translation>
     </message>
@@ -22,177 +22,154 @@
 <context>
     <name>AddRecordDlg</name>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.ui" line="14"/>
+        <location filename="AddRecordDlg.ui" line="14"/>
         <source>Enter record data</source>
-        <translation>Введите данные</translation>
+        <translation>Введите данные заемщика</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.ui" line="27"/>
-        <source>Region</source>
-        <translation>Регион нахождения</translation>
-    </message>
-    <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.ui" line="34"/>
-        <source>Loan guarantee</source>
-        <translation>Обеспечение займа</translation>
-    </message>
-    <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.ui" line="44"/>
-        <source>Contact</source>
-        <translation>Контакты</translation>
-    </message>
-    <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.ui" line="51"/>
-        <source>Amount</source>
-        <translation>Сумма</translation>
-    </message>
-    <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.ui" line="61"/>
-        <source>Belonging</source>
-        <translation>Принадлежность</translation>
-    </message>
-    <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.ui" line="74"/>
-        <source>Name</source>
-        <translation>Имя</translation>
-    </message>
-    <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.ui" line="81"/>
-        <source>Surname</source>
-        <translation>Фамилия</translation>
-    </message>
-    <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.ui" line="88"/>
+        <location filename="AddRecordDlg.ui" line="24"/>
         <source>Patronymic</source>
         <translation>Отчество</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.ui" line="104"/>
-        <source>Activity</source>
-        <translation>Сфера деятельности</translation>
+        <location filename="AddRecordDlg.ui" line="40"/>
+        <source>Region</source>
+        <translation>Регион</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.ui" line="114"/>
+        <location filename="AddRecordDlg.ui" line="47"/>
+        <source>Loan guarantee</source>
+        <translation>Обеспечение займа</translation>
+    </message>
+    <message>
+        <location filename="AddRecordDlg.ui" line="54"/>
+        <source>Contact</source>
+        <translation>Контакты</translation>
+    </message>
+    <message>
+        <location filename="AddRecordDlg.ui" line="67"/>
+        <source>Amount</source>
+        <translation>Сумма</translation>
+    </message>
+    <message>
+        <location filename="AddRecordDlg.ui" line="74"/>
+        <source>Name</source>
+        <translation>Имя</translation>
+    </message>
+    <message>
+        <location filename="AddRecordDlg.ui" line="81"/>
+        <source>Surname</source>
+        <translation>Фамилия</translation>
+    </message>
+    <message>
+        <location filename="AddRecordDlg.ui" line="94"/>
         <source>Place</source>
-        <translation>Место нахождения</translation>
+        <translation>Место</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.ui" line="146"/>
+        <location filename="AddRecordDlg.ui" line="104"/>
+        <source>Belonging</source>
+        <translation>Принадлежность</translation>
+    </message>
+    <message>
+        <location filename="AddRecordDlg.ui" line="114"/>
+        <source>Activity</source>
+        <translation>Деятельность</translation>
+    </message>
+    <message>
+        <location filename="AddRecordDlg.ui" line="146"/>
         <source>photo</source>
-        <translation>фотография</translation>
+        <translation>Фотография</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.ui" line="153"/>
+        <location filename="AddRecordDlg.ui" line="156"/>
         <source>Load Photo</source>
         <translation>Загрузить фотографию</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.ui" line="160"/>
+        <location filename="AddRecordDlg.ui" line="163"/>
         <source>Remove Photo</source>
         <translation>Удалить фотографию</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.cpp" line="68"/>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.cpp" line="92"/>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.cpp" line="111"/>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.cpp" line="163"/>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.cpp" line="171"/>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.cpp" line="196"/>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.cpp" line="221"/>
+        <location filename="AddRecordDlg.cpp" line="77"/>
+        <location filename="AddRecordDlg.cpp" line="84"/>
+        <location filename="AddRecordDlg.cpp" line="97"/>
+        <location filename="AddRecordDlg.cpp" line="174"/>
         <source>Add record</source>
-        <translation>Добавить запись</translation>
+        <translation>Добаление записи</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.cpp" line="69"/>
-        <source>Can not insert new row. Error: </source>
-        <translation>Не могу вставить новую строку. Ошибка: </translation>
+        <location filename="AddRecordDlg.cpp" line="77"/>
+        <source>Can not read file: </source>
+        <translation>Не получилось прочитать файл: </translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.cpp" line="93"/>
-        <source>Can not submit changes. Error: </source>
-        <translation>Не могу сохранить изменения. Ошибка: </translation>
-    </message>
-    <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.cpp" line="101"/>
-        <source>Open Image</source>
-        <translation>Открыть изображение</translation>
-    </message>
-    <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.cpp" line="102"/>
-        <source>Image Files (*.png *.jpg *.bmp)</source>
-        <translation>Фильтр картинок (*.png *.jpg *.bm)</translation>
-    </message>
-    <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.cpp" line="111"/>
-        <source>Can not read photo</source>
-        <translation>Не могу прочитать фотографию</translation>
-    </message>
-    <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.cpp" line="156"/>
-        <source>photos/</source>
-        <translation>photos/</translation>
-    </message>
-    <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.cpp" line="163"/>
+        <location filename="AddRecordDlg.cpp" line="84"/>
         <source>Photo already exists: </source>
-        <translation>Фотография уже существует</translation>
+        <translation>Такая фотография уже существует: </translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.cpp" line="171"/>
+        <location filename="AddRecordDlg.cpp" line="97"/>
         <source>Can not write photo</source>
-        <translation>Не могу записать фотографию</translation>
+        <translation>Не получается записать фотографию</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.cpp" line="196"/>
+        <location filename="AddRecordDlg.cpp" line="114"/>
+        <source>Open Image</source>
+        <translation>Открыть фотографию</translation>
+    </message>
+    <message>
+        <location filename="AddRecordDlg.cpp" line="115"/>
+        <source>Image Files (*.png *.jpg *.bmp)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="AddRecordDlg.cpp" line="174"/>
         <source>Invalid photo data</source>
-        <translation>Неправильные данные для фотографии</translation>
-    </message>
-    <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/AddRecordDlg.cpp" line="221"/>
-        <source>Can not read file </source>
-        <translation>Не могу прочитать файл</translation>
+        <translation>Неправильный формат фотографии</translation>
     </message>
 </context>
 <context>
     <name>FilterDlg</name>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/FilterDlg.ui" line="14"/>
+        <location filename="FilterDlg.ui" line="14"/>
         <source>Filter</source>
-        <translation>Фильтр</translation>
+        <translation>Фильтры</translation>
     </message>
 </context>
 <context>
     <name>FiltersContainerWidget</name>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/FiltersContainerWidget.ui" line="14"/>
+        <location filename="FiltersContainerWidget.ui" line="14"/>
         <source>Form</source>
-        <translation>Форма</translation>
+        <translation>Фильтры</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/FiltersContainerWidget.ui" line="38"/>
+        <location filename="FiltersContainerWidget.ui" line="38"/>
         <source>Add filter</source>
         <translation>Добавить фильтр</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/FiltersContainerWidget.ui" line="99"/>
+        <location filename="FiltersContainerWidget.ui" line="99"/>
         <source>Filter</source>
-        <translation>Фильтр</translation>
+        <translation>Фильтровать</translation>
     </message>
 </context>
 <context>
-    <name>IntegerFilterWidget</name>
+    <name>IntFilterWidget</name>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/IntegerFilterWidget.ui" line="14"/>
+        <location filename="IntFilterWidget.ui" line="14"/>
         <source>Form</source>
         <translation>Форма</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/IntegerFilterWidget.ui" line="20"/>
+        <location filename="IntFilterWidget.ui" line="20"/>
         <source>From</source>
         <translation>От</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/IntegerFilterWidget.ui" line="30"/>
+        <location filename="IntFilterWidget.ui" line="30"/>
         <source>To</source>
         <translation>До</translation>
     </message>
@@ -200,215 +177,237 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/MainWindow.ui" line="14"/>
+        <location filename="MainWindow.ui" line="14"/>
         <source>Programm</source>
         <translation>Программа</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/MainWindow.ui" line="25"/>
+        <location filename="MainWindow.ui" line="25"/>
         <source>Table</source>
         <translation>Таблица</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/MainWindow.ui" line="53"/>
+        <location filename="MainWindow.ui" line="53"/>
         <source>Add</source>
-        <translation>Добавить</translation>
+        <translation>Добавить запись</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/MainWindow.ui" line="66"/>
+        <location filename="MainWindow.ui" line="66"/>
         <source>Remove</source>
-        <translation>Удалить</translation>
+        <translation>Удалить запись</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/MainWindow.ui" line="85"/>
+        <location filename="MainWindow.ui" line="85"/>
         <source>Tools</source>
         <translation>Инструменты</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/MainWindow.ui" line="92"/>
+        <location filename="MainWindow.ui" line="92"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/MainWindow.ui" line="98"/>
+        <location filename="MainWindow.ui" line="98"/>
         <source>Help</source>
         <translation>Помощь</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/MainWindow.ui" line="108"/>
-        <source>Select headers...</source>
-        <translation>Выбор заголовков...</translation>
+        <location filename="MainWindow.ui" line="104"/>
+        <source>Language/Язык</source>
+        <translation>Язык/Language</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/MainWindow.ui" line="113"/>
-        <source>Filter...</source>
-        <translation>Фильтр...</translation>
+        <location filename="MainWindow.ui" line="116"/>
+        <source>tools</source>
+        <translation>Инструменты</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/MainWindow.ui" line="118"/>
+        <location filename="MainWindow.ui" line="137"/>
+        <source>Select headers</source>
+        <translation>Выбрать заголовки</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="146"/>
+        <source>Filter</source>
+        <translation>Фильтровать</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="155"/>
         <source>Exit</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/MainWindow.ui" line="123"/>
-        <source>About...</source>
-        <translation>О программе...</translation>
+        <location filename="MainWindow.ui" line="160"/>
+        <source>About</source>
+        <translation>О программе</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/MainWindow.ui" line="131"/>
+        <location filename="MainWindow.ui" line="168"/>
         <source>English</source>
-        <translation>Английский</translation>
+        <translation>English</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/MainWindow.ui" line="142"/>
-        <source>Russian</source>
+        <location filename="MainWindow.ui" line="179"/>
+        <source>Русский</source>
         <translation>Русский</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/MainWindow.cpp" line="90"/>
+        <location filename="MainWindow.cpp" line="102"/>
         <source>Removing records.</source>
-        <translation>Удаление записей.</translation>
+        <translation>Удаление записи.</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/MainWindow.cpp" line="91"/>
+        <location filename="MainWindow.cpp" line="103"/>
         <source>Do you realy want delete </source>
-        <translation>Вы действительно хотите удалить</translation>
+        <translation>Вы действительно хотите удалить </translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/MainWindow.cpp" line="91"/>
+        <location filename="MainWindow.cpp" line="103"/>
         <source> records?</source>
-        <translation>записи?</translation>
+        <translation>запись?</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/MainWindow.cpp" line="101"/>
+        <location filename="MainWindow.cpp" line="120"/>
         <source>Database error.</source>
         <translation>Ошибка базы данных.</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/MainWindow.cpp" line="102"/>
+        <location filename="MainWindow.cpp" line="121"/>
         <source>Can not remove record. Error: </source>
-        <translation>Не могу удалить запись. Ошибка: </translation>
+        <translation>Не получается удалить запись. Ошибка: </translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/TableInfo.cpp" line="20"/>
+        <location filename="BorrowerTableInfo.cpp" line="20"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/TableInfo.cpp" line="21"/>
+        <location filename="BorrowerTableInfo.cpp" line="21"/>
         <source>Name</source>
         <translation>Имя</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/TableInfo.cpp" line="22"/>
+        <location filename="BorrowerTableInfo.cpp" line="22"/>
         <source>Surname</source>
         <translation>Фамилия</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/TableInfo.cpp" line="23"/>
+        <location filename="BorrowerTableInfo.cpp" line="23"/>
         <source>Patronymic</source>
         <translation>Отчество</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/TableInfo.cpp" line="24"/>
+        <location filename="BorrowerTableInfo.cpp" line="24"/>
         <source>Photo</source>
         <translation>Фотография</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/TableInfo.cpp" line="25"/>
+        <location filename="BorrowerTableInfo.cpp" line="25"/>
         <source>Activity</source>
-        <translation>Род дейстельности</translation>
+        <translation>Деятельность</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/TableInfo.cpp" line="26"/>
+        <location filename="BorrowerTableInfo.cpp" line="26"/>
         <source>Loan guarantee</source>
         <translation>Обеспечение займа</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/TableInfo.cpp" line="27"/>
+        <location filename="BorrowerTableInfo.cpp" line="27"/>
         <source>Belonging</source>
         <translation>Принадлежность</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/TableInfo.cpp" line="28"/>
+        <location filename="BorrowerTableInfo.cpp" line="28"/>
         <source>Amount</source>
         <translation>Сумма</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/TableInfo.cpp" line="29"/>
+        <location filename="BorrowerTableInfo.cpp" line="29"/>
         <source>Region</source>
-        <translation>Регион расположения</translation>
+        <translation>Регион</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/TableInfo.cpp" line="30"/>
+        <location filename="BorrowerTableInfo.cpp" line="30"/>
         <source>Place</source>
-        <translation>Место расположения</translation>
+        <translation>Место</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/TableInfo.cpp" line="31"/>
+        <location filename="BorrowerTableInfo.cpp" line="31"/>
         <source>Contact</source>
         <translation>Контакты</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/main.cpp" line="27"/>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/main.cpp" line="44"/>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/main.cpp" line="66"/>
+        <location filename="main.cpp" line="29"/>
+        <location filename="main.cpp" line="46"/>
+        <location filename="main.cpp" line="68"/>
         <source>Filesystem error.</source>
         <translation>Ошибка файловой системы.</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/main.cpp" line="28"/>
+        <location filename="main.cpp" line="30"/>
         <source>Photos directory can not be created.</source>
-        <translation>Дирктория для хранения фотографий не может быть создана.</translation>
+        <translation>Не получается создать директорию для фотографий.</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/main.cpp" line="45"/>
+        <location filename="main.cpp" line="47"/>
         <source>Backups directory can not be created.</source>
-        <translation>Не могу создать каталог для резервных копий.</translation>
+        <translation>Не получается создать директорию для резервных копий базы данных.</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/main.cpp" line="67"/>
+        <location filename="main.cpp" line="69"/>
         <source>Can not copy backup. Error: </source>
-        <translation>Не могу скопировать резервную копию базы данных. Ошибка: </translation>
+        <translation>Не получается скобировать резервную копию базы данных. Ошибка: </translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/main.cpp" line="81"/>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/main.cpp" line="91"/>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/main.cpp" line="102"/>
+        <location filename="main.cpp" line="84"/>
+        <location filename="main.cpp" line="94"/>
+        <location filename="main.cpp" line="110"/>
+        <location filename="main.cpp" line="135"/>
+        <location filename="main.cpp" line="173"/>
         <source>Database error.</source>
-        <translation>Ошибка базы данных</translation>
+        <translation>Ошибка базы данных.</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/main.cpp" line="82"/>
+        <location filename="main.cpp" line="85"/>
         <source>Database is not loaded. Error: </source>
-        <translation>База данных не загружена. Ошибка: </translation>
+        <translation>Не получается загрузить базу данных. Ошибка:</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/main.cpp" line="92"/>
+        <location filename="main.cpp" line="95"/>
         <source>Database is not opened. Error: </source>
-        <translation>База данных не открыта. Ошибка: </translation>
+        <translation>Не получается загрузить базу данных. Ошибка: </translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/main.cpp" line="103"/>
+        <location filename="main.cpp" line="111"/>
+        <source>Table &apos;region&apos; is not created. Error: </source>
+        <translation>Не получается создать таблицу &apos;region&apos;. Ошибка: </translation>
+    </message>
+    <message>
+        <location filename="main.cpp" line="136"/>
+        <source>Table &apos;belonging&apos; is not created. Error: </source>
+        <translation>Не получается создать таблицу &quot;belonging&quot;. Ошибка: </translation>
+    </message>
+    <message>
+        <location filename="main.cpp" line="174"/>
         <source>Table &apos;borrower&apos; is not created. Error: </source>
-        <translation>Таблица &quot;заемщики&quot; не создана. Ошибка: </translation>
+        <translation>Не получается создать таблицу &apos;borrower&apos;. Ошибка: </translation>
     </message>
 </context>
 <context>
     <name>SelectHeaderFieldsDlg</name>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/SelectHeaderFieldsDlg.ui" line="14"/>
+        <location filename="SelectHeaderFieldsDlg.ui" line="14"/>
         <source>Select headers</source>
-        <translation>Выбирите заголовки</translation>
+        <translation>Выбор заголовков</translation>
     </message>
 </context>
 <context>
     <name>TableViewWidget</name>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/TableViewWidget.ui" line="14"/>
+        <location filename="TableViewWidget.ui" line="14"/>
         <source>Form</source>
         <translation>Форма</translation>
     </message>
@@ -416,57 +415,57 @@
 <context>
     <name>TextFilterWidget</name>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/TextFilterWidget.ui" line="20"/>
+        <location filename="TextFilterWidget.ui" line="20"/>
         <source>Text filter</source>
-        <translation>Текстовый фильтр</translation>
+        <translation>Фильтр текста</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/TextFilterWidget.ui" line="38"/>
+        <location filename="TextFilterWidget.ui" line="38"/>
         <source>Case sensitive</source>
-        <translation>Использовать регистр</translation>
+        <translation>Учитывать регистр</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/TextFilterWidget.cpp" line="11"/>
+        <location filename="TextFilterWidget.cpp" line="11"/>
         <source>Regular expression</source>
         <translation>Регулярное выражение</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/TextFilterWidget.cpp" line="12"/>
+        <location filename="TextFilterWidget.cpp" line="12"/>
         <source>Wildcard</source>
         <translation>Шаблон</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/TextFilterWidget.cpp" line="13"/>
+        <location filename="TextFilterWidget.cpp" line="13"/>
         <source>FixedString</source>
-        <translation>Строка целиком</translation>
+        <translation>Строка как есть</translation>
     </message>
 </context>
 <context>
     <name>ViewRecordDlg</name>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/ViewRecordDlg.ui" line="14"/>
+        <location filename="ViewRecordDlg.ui" line="14"/>
         <source>Record info</source>
-        <translation>Информация о записи</translation>
+        <translation>Информация о заемщике</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/ViewRecordDlg.ui" line="29"/>
+        <location filename="ViewRecordDlg.ui" line="29"/>
         <source>Print</source>
-        <translation>Печатать</translation>
+        <translation>Печать</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/ViewRecordDlg.ui" line="49"/>
+        <location filename="ViewRecordDlg.ui" line="49"/>
         <source>Edit</source>
-        <translation>Редактировать</translation>
+        <translation>Изменить</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/ViewRecordDlg.ui" line="56"/>
+        <location filename="ViewRecordDlg.ui" line="56"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../../../../../Users/Sergey/Projects/Home/Programm/Src/ViewRecordDlg.cpp" line="47"/>
+        <location filename="ViewRecordDlg.cpp" line="59"/>
         <source>&lt;font size=&apos;6&apos;&gt;%name %surname %patronymic&lt;/font&gt; &lt;br/&gt;&lt;img src=&apos;%photo&apos; %size&gt; &lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Region&lt;/font&gt; &lt;br/&gt;%region&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Place&lt;/font&gt; &lt;br/&gt;%place&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Loan guarantee&lt;/font&gt; &lt;br/&gt;%loanGuarantee&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Belonging&lt;/font&gt; &lt;br/&gt;%belonging&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Amount&lt;/font&gt; &lt;br/&gt;%amount&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Contact&lt;/font&gt; &lt;br/&gt;%contact&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Activity&lt;/font&gt; &lt;br/&gt;%activity&lt;br/&gt;</source>
-        <translation>&lt;font size=&apos;6&apos;&gt;%name %surname %patronymic&lt;/font&gt; &lt;br/&gt;&lt;img src=&apos;%photo&apos; %size&gt; &lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Регион нахождения&lt;/font&gt; &lt;br/&gt;%region&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Место нахождения&lt;/font&gt; &lt;br/&gt;%place&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Обеспечение займа&lt;/font&gt; &lt;br/&gt;%loanGuarantee&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Принадлежность&lt;/font&gt; &lt;br/&gt;%belonging&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Сумма&lt;/font&gt; &lt;br/&gt;%amount&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Контакты&lt;/font&gt; &lt;br/&gt;%contact&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Деятельность&lt;/font&gt; &lt;br/&gt;%activity&lt;br/&gt;</translation>
+        <translation>&lt;font size=&apos;6&apos;&gt;%name %surname %patronymic&lt;/font&gt; &lt;br/&gt;&lt;img src=&apos;%photo&apos; %size&gt; &lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Регион&lt;/font&gt; &lt;br/&gt;%region&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Место&lt;/font&gt; &lt;br/&gt;%place&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Обеспечение займа&lt;/font&gt; &lt;br/&gt;%loanGuarantee&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Принадлежность&lt;/font&gt; &lt;br/&gt;%belonging&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Сумма&lt;/font&gt; &lt;br/&gt;%amount&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Контакты&lt;/font&gt; &lt;br/&gt;%contact&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Деятельность&lt;/font&gt; &lt;br/&gt;%activity&lt;br/&gt;</translation>
     </message>
 </context>
 </TS>

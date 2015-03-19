@@ -29,6 +29,12 @@ TableViewWidget::~TableViewWidget()
     delete ui;
 }
 
+void TableViewWidget::retranslate()
+{
+    ui->retranslateUi(this);
+    renameHeaders();
+}
+
 void TableViewWidget::showOnlyHeaders(const QStringList& names)
 {
     BorrowerTableInfo tableInfo;

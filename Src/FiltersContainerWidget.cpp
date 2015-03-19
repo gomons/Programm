@@ -15,19 +15,7 @@ FiltersContainerWidget::FiltersContainerWidget(SortFilterProxyModel *model, QWid
 {
     ui->setupUi(this);
 
-    BorrowerTableInfo tableInfo;
-    QStringList filterNames;
-    filterNames << tableInfo.nameFieldAlias
-                << tableInfo.surnameFieldAlias
-                << tableInfo.patronymicFieldAlias
-                << tableInfo.activityFieldAlias
-                << tableInfo.loanGuaranteeFieldAlias
-                << tableInfo.belongingFieldAlias
-                << tableInfo.amountFieldAlias
-                << tableInfo.regionFieldAlias
-                << tableInfo.placeFieldAlias
-                << tableInfo.contactFieldAlias;
-    ui->filterNameCombobox->addItems(filterNames);
+    fillFiltersComboBox();
 
     layout = new QGridLayout();
     layout->setSpacing(2);
@@ -41,6 +29,12 @@ FiltersContainerWidget::FiltersContainerWidget(SortFilterProxyModel *model, QWid
 FiltersContainerWidget::~FiltersContainerWidget()
 {
     delete ui;
+}
+
+void FiltersContainerWidget::retranslate()
+{
+    ui->retranslateUi(this);
+    fillFiltersComboBox();
 }
 
 void FiltersContainerWidget::filter()
@@ -100,6 +94,26 @@ void FiltersContainerWidget::removeFilterWidget(const QString &filterName)
             return;
         }
     }
+}
+
+void FiltersContainerWidget::fillFiltersComboBox()
+{
+    ui->filterNameCombobox->clear();
+
+    BorrowerTableInfo tableInfo;
+    QStringList filterNames;
+    filterNames << tableInfo.nameFieldAlias
+                << tableInfo.surnameFieldAlias
+                << tableInfo.patronymicFieldAlias
+                << tableInfo.activityFieldAlias
+                << tableInfo.loanGuaranteeFieldAlias
+                << tableInfo.belongingFieldAlias
+                << tableInfo.amountFieldAlias
+                << tableInfo.regionFieldAlias
+                << tableInfo.placeFieldAlias
+                << tableInfo.contactFieldAlias;
+
+    ui->filterNameCombobox->addItems(filterNames);
 }
 
 bool FiltersContainerWidget::isFilterWidgetPresent(const QString &filterName)
