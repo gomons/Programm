@@ -100,6 +100,8 @@ bool MainWindow::init()
 
 void MainWindow::removeRecords()
 {
+    removeRecordsColor();
+
     QList<int> rows = tableViewWidget->getSelectedRows();
 
     if (rows.empty())
