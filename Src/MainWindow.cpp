@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QMessageBox>
 #include <QSqlError>
+#include <QSqlQuery>
 #include <QSqlRelationalTableModel>
 #include <QTranslator>
 #include "AboutDlg.h"
@@ -68,6 +69,12 @@ bool MainWindow::init()
     connect(ui->exitAction,             SIGNAL(triggered()),            this,   SLOT(close()));
     connect(ui->filterAction,           SIGNAL(triggered()),            this,   SLOT(showFilterDlg()));
 
+    connect(ui->redButton,              SIGNAL(clicked()),              this,   SLOT(changeRecordsColorToRed()));
+    connect(ui->yellowBotton,           SIGNAL(clicked()),              this,   SLOT(changeRecordsColorToYellow()));
+    connect(ui->greenBotton,            SIGNAL(clicked()),              this,   SLOT(changeRecordsColorToGreen()));
+    connect(ui->blueBotton,             SIGNAL(clicked()),              this,   SLOT(changeRecordsColorToBlue()));
+    connect(ui->whiteButton,            SIGNAL(clicked()),              this,   SLOT(changeRecordsColorToWhite()));
+
     ui->toolBar->addAction(ui->selectHeadersAction);
     ui->toolBar->addAction(ui->filterAction);
 
@@ -126,6 +133,63 @@ void MainWindow::removeRecords()
 
     model->submitAll();
     model->select();
+}
+
+void MainWindow::changeRecordsColorToRed()
+{
+    changeRecordsColor(QColor("red"));
+}
+
+void MainWindow::changeRecordsColorToYellow()
+{
+    changeRecordsColor(QColor("yellow"));
+}
+
+void MainWindow::changeRecordsColorToGreen()
+{
+    changeRecordsColor(QColor("green"));
+}
+
+void MainWindow::changeRecordsColorToBlue()
+{
+    changeRecordsColor(QColor("blue"));
+}
+
+void MainWindow::changeRecordsColorToWhite()
+{
+    removeRecordsColor();
+}
+
+void MainWindow::changeRecordsColor(QColor color)
+{
+    QString sqlQueryStr = "INSERT OR REPLACE INTO colors (color, borrower_id) VALUES ('%2', %3)";
+    QSqlQuery query;
+
+    QList<int> rows = tableViewWidget->getSelectedRows();
+    foreach (int row, rows)
+    {
+        BorrowerTableInfo tableInfo;
+        QModelIndex borrowedIdIndex = model->index(row, tableInfo.idFieldID);
+        int borrowedId = model->data(borrowedIdIndex).toInt();
+        query.exec(sqlQueryStr.arg(color.name()).arg(borrowedId));
+    }
+    proxyModel->updateColorsMap();
+}
+
+void MainWindow::removeRecordsColor()
+{
+    QString sqlQueryStr = "DELETE FROM colors WHERE borrower_id=%1";
+    QSqlQuery query;
+
+    QList<int> rows = tableViewWidget->getSelectedRows();
+    foreach (int row, rows)
+    {
+        BorrowerTableInfo tableInfo;
+        QModelIndex borrowedIdIndex = model->index(row, tableInfo.idFieldID);
+        int borrowedId = model->data(borrowedIdIndex).toInt();
+        query.exec(sqlQueryStr.arg(borrowedId));
+    }
+    proxyModel->updateColorsMap();
 }
 
 void MainWindow::showAddRecordDlg()

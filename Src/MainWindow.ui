@@ -29,6 +29,56 @@
     <item>
      <layout class="QHBoxLayout" name="addRemoveLayout">
       <item>
+       <widget class="QPushButton" name="redButton">
+        <property name="styleSheet">
+         <string notr="true">background-color: red</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="yellowBotton">
+        <property name="styleSheet">
+         <string notr="true">background-color: yellow</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="greenBotton">
+        <property name="styleSheet">
+         <string notr="true">background-color: green</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="blueBotton">
+        <property name="styleSheet">
+         <string notr="true">background-color: blue</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="whiteButton">
+        <property name="styleSheet">
+         <string notr="true">background-color: white</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>

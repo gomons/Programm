@@ -1,14 +1,17 @@
 #include "SortFilterProxyModel.h"
 #include "BorrowerTableInfo.h"
+#include <QSqlRecord>
+#include <QSqlQuery>
+#include <QSqlField>
 
 SortFilterProxyModel::SortFilterProxyModel(QObject *parent) :
     QSortFilterProxyModel(parent)
 {
+    updateColorsMap();
 }
 
 SortFilterProxyModel::~SortFilterProxyModel()
-{
-}
+{}
 
 void SortFilterProxyModel::resetTextMatchers()
 {
@@ -18,6 +21,40 @@ void SortFilterProxyModel::resetTextMatchers()
 void SortFilterProxyModel::addTextMatcher(const QString &name, QSharedPointer<AbstractTextMatcher> matcher)
 {
     textMatchers.insert(name, matcher);
+}
+
+QVariant SortFilterProxyModel::data(const QModelIndex &idx, int role) const
+{
+    if(role == Qt::BackgroundRole)
+    {
+        BorrowerTableInfo tableInfo;
+        int currBorrowerId = QSortFilterProxyModel::data(index(idx.row(), tableInfo.idFieldID), Qt::DisplayRole).toInt();
+        if (borrowerIdColorMap.contains(currBorrowerId))
+        {
+            QColor rowColor = borrowerIdColorMap.value(currBorrowerId);
+            return rowColor;
+        }
+    }
+    QVariant currData = QSortFilterProxyModel::data(idx, role);
+    return currData;
+}
+
+void SortFilterProxyModel::updateColorsMap()
+{
+    borrowerIdColorMap.clear();
+
+    QString sql = "SELECT * FROM colors";
+    QSqlQuery query;
+    query.exec(sql);
+    query.next();
+    while(query.isValid())
+    {
+        QSqlRecord record = query.record();
+        QColor color = record.value(1).toString();
+        int borrowerId = record.value(2).toInt();
+        borrowerIdColorMap.insert(borrowerId, color);
+        query.next();
+    }
 }
 
 bool SortFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
@@ -41,6 +78,5 @@ bool SortFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &so
                 return false;
         }
     }
-
     return true;
 }

@@ -19,6 +19,8 @@ TableViewWidget::TableViewWidget(QSqlRelationalTableModel *model,
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
+    //ui->tableView->setItemDelegate
+
     renameHeaders();
 
     connect(ui->tableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(rowDoubleClicked(QModelIndex)));
