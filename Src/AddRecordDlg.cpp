@@ -136,6 +136,10 @@ void AddRecordDlg::prepareDlg()
     ui->belonginComboBox->setModel(belongingModel);
     ui->belonginComboBox->setModelColumn(belongingModel->fieldIndex("description"));
 
+    QSqlTableModel *colorModel = model->relationModel(tableInfo.colorIdFieldID);
+    ui->colorComboBox->setModel(colorModel);
+    ui->colorComboBox->setModelColumn(colorModel->fieldIndex("name"));
+
     mapper = new QDataWidgetMapper(this);
     mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
     mapper->setModel(model);
@@ -152,6 +156,7 @@ void AddRecordDlg::prepareDlg()
     mapper->addMapping(ui->regionComboBox, tableInfo.regionFieldID);
     mapper->addMapping(ui->placeEdit, tableInfo.placeFieldID);
     mapper->addMapping(ui->contactEdit, tableInfo.contactFieldID);
+    mapper->addMapping(ui->colorComboBox, tableInfo.colorIdFieldID);
 
     ui->photoEdit->setVisible(false);
     ui->amountEdit->setValidator(new QIntValidator(0, 999999999, this));
