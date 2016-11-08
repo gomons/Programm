@@ -157,6 +157,7 @@ void AddRecordDlg::prepareDlg()
     mapper->addMapping(ui->placeEdit, tableInfo.placeFieldID);
     mapper->addMapping(ui->contactEdit, tableInfo.contactFieldID);
     mapper->addMapping(ui->colorComboBox, tableInfo.colorIdFieldID);
+    mapper->addMapping(ui->commentLineEdit, tableInfo.commentFieldID);
 
     ui->photoEdit->setVisible(false);
     ui->amountEdit->setValidator(new QIntValidator(0, 999999999, this));
