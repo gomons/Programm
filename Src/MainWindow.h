@@ -35,7 +35,6 @@ public slots:
     void changeRecordsColorToWhite();
 
     void changeRecordsColor(QColor color);
-    void removeRecordsColor();
 
     void showAddRecordDlg();
     void showEditRecordDlg(int row);

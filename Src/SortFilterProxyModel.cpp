@@ -3,12 +3,14 @@
 #include <QSqlRecord>
 #include <QSqlQuery>
 #include <QSqlField>
+#include "ColorMap.h"
+
+#include <QDebug>
+#include <QSqlRelation>
 
 SortFilterProxyModel::SortFilterProxyModel(QObject *parent) :
     QSortFilterProxyModel(parent)
-{
-    updateColorsMap();
-}
+{}
 
 SortFilterProxyModel::~SortFilterProxyModel()
 {}
@@ -28,33 +30,13 @@ QVariant SortFilterProxyModel::data(const QModelIndex &idx, int role) const
     if(role == Qt::BackgroundRole)
     {
         BorrowerTableInfo tableInfo;
-        int currBorrowerId = QSortFilterProxyModel::data(index(idx.row(), tableInfo.idFieldID), Qt::DisplayRole).toInt();
-        if (borrowerIdColorMap.contains(currBorrowerId))
-        {
-            QColor rowColor = borrowerIdColorMap.value(currBorrowerId);
-            return rowColor;
-        }
+        QString colorDisplayName = QSortFilterProxyModel::data(index(idx.row(), tableInfo.colorIdFieldID), Qt::DisplayRole).toString();
+        ColorMap colorMap;
+        QColor color = colorMap.getColor(colorDisplayName);
+        return color;
     }
     QVariant currData = QSortFilterProxyModel::data(idx, role);
     return currData;
-}
-
-void SortFilterProxyModel::updateColorsMap()
-{
-    borrowerIdColorMap.clear();
-
-    QString sql = "SELECT * FROM colors";
-    QSqlQuery query;
-    query.exec(sql);
-    query.next();
-    while(query.isValid())
-    {
-        QSqlRecord record = query.record();
-        QColor color = record.value(1).toString();
-        int borrowerId = record.value(2).toInt();
-        borrowerIdColorMap.insert(borrowerId, color);
-        query.next();
-    }
 }
 
 bool SortFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const

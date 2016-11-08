@@ -19,14 +19,10 @@ public:
 
     QVariant data(const QModelIndex &idx, int role = Qt::DisplayRole) const override;
 
-public slots:
-    void updateColorsMap();
-
 protected:
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override;
 
 private:
-    QMap<int,QColor> borrowerIdColorMap;
     QMap<QString, QSharedPointer<AbstractTextMatcher>> textMatchers;
 };
 

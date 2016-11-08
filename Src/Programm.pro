@@ -29,7 +29,8 @@ SOURCES += \
     FilterDlg.cpp \
     AboutDlg.cpp \
     IntFilterWidget.cpp \
-    BorrowerTableInfo.cpp
+    BorrowerTableInfo.cpp \
+    ColorMap.cpp
 
 HEADERS += \
     AbstractFilterWidget.h \
@@ -47,7 +48,8 @@ HEADERS += \
     FilterDlg.h \
     AboutDlg.h \
     IntFilterWidget.h \
-    BorrowerTableInfo.h
+    BorrowerTableInfo.h \
+    ColorMap.h
 
 FORMS += \
     AddRecordDlg.ui \

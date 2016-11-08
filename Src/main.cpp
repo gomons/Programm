@@ -108,7 +108,7 @@ bool createRegionTable(QMainWindow *w)
 
     QString createRegionsTableQuery = "CREATE TABLE IF NOT EXISTS region ("
                                       "id INTEGER PRIMARY KEY,"
-                                      "name TEXT"
+                                      "name TEXT UNIQUE"
                                       ");";
     QSqlQuery query;
     bool tableCreated = query.exec(createRegionsTableQuery);
@@ -142,26 +142,41 @@ bool createRegionTable(QMainWindow *w)
     return true;
 }
 
-bool createColorsTable(QMainWindow *w)
+bool createColorTable(QMainWindow *w)
 {
     QSqlDatabase db;
 
-    if (db.tables().contains("colors"))
+    if (db.tables().contains("region"))
         return true;
 
-    QString createColorsTableQuery = "CREATE TABLE IF NOT EXISTS colors ("
-                                     "id INTEGER PRIMARY KEY,"
-                                     "color TEXT,"
-                                     "borrower_id INTEGER UNIQUE,"
-                                     "FOREIGN KEY(borrower_id) REFERENCES borrower(id)"
-                                     ");";
+    QString createTableQuery = "CREATE TABLE IF NOT EXISTS color ("
+                               "id INTEGER PRIMARY KEY,"
+                               "name TEXT UNIQUE"
+                               ");";
     QSqlQuery query;
-    bool tableCreated = query.exec(createColorsTableQuery);
+    bool tableCreated = query.exec(createTableQuery);
     if (!tableCreated)
     {
         QMessageBox::critical(w,
                               QObject::tr("Database error."),
-                              QObject::tr("Table 'colors' is not created. Error: ") + query.lastError().text());
+                              QObject::tr("Table 'color' is not created. Error: ") + query.lastError().text());
+        return false;
+    }
+
+    bool inserted = true;
+
+    QString insertQuery = "INSERT INTO color (name) VALUES ('%1');";
+    inserted |= query.exec(insertQuery.arg("Белый"));
+    inserted |= query.exec(insertQuery.arg("Красный"));
+    inserted |= query.exec(insertQuery.arg("Желтый"));
+    inserted |= query.exec(insertQuery.arg("Зеленый"));
+    inserted |= query.exec(insertQuery.arg("Синий"));
+
+    if (!inserted)
+    {
+        QMessageBox::critical(w,
+                              QObject::tr("Database error."),
+                              QObject::tr("Table 'color' not populated.") + query.lastError().text());
         return false;
     }
 
@@ -177,7 +192,7 @@ bool createBelongingTable(QMainWindow *w)
 
     QString createRegionsTableQuery = "CREATE TABLE IF NOT EXISTS belonging ("
                                       "id INTEGER PRIMARY KEY,"
-                                      "description TEXT);";
+                                      "description TEXT UNIQUE);";
     QSqlQuery query;
     bool tableCreated = query.exec(createRegionsTableQuery);
     if (!tableCreated)
@@ -224,8 +239,11 @@ bool createBorrowerTable(QMainWindow *w)
                                        "region_id INTEGER,"
                                        "place TEXT,"
                                        "contact TEXT,"
+                                       "color_id INTEGER,"
+                                       "comment TEXT,"
                                        "FOREIGN KEY(region_id) REFERENCES region(id),"
-                                       "FOREIGN KEY(belonging_id) REFERENCES belonging(id)"
+                                       "FOREIGN KEY(belonging_id) REFERENCES belonging(id),"
+                                       "FOREIGN KEY(color_id) REFERENCES color(id)"
                                        ");";
 
     QSqlQuery query;
@@ -255,7 +273,7 @@ bool initDatabase(QMainWindow *w)
     if (!created)
         return false;
 
-    created = createColorsTable(w);
+    created = createColorTable(w);
     if (!created)
         return false;
 

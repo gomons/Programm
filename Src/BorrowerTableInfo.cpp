@@ -16,6 +16,8 @@ BorrowerTableInfo::BorrowerTableInfo() :
     regionFieldID(9),
     placeFieldID(10),
     contactFieldID(11),
+    colorIdFieldID(12),
+    commentFieldID(13),
 
     idFieldAlias(QObject::tr("ID")),
     nameFieldAlias(QObject::tr("Name")),
@@ -29,6 +31,8 @@ BorrowerTableInfo::BorrowerTableInfo() :
     regionFieldAlias(QObject::tr("Region")),
     placeFieldAlias(QObject::tr("Place")),
     contactFieldAlias(QObject::tr("Contact")),
+    colorIdFieldAlias(QObject::tr("Color")),
+    commentFieldAlias(QObject::tr("Comment")),
 
     idFieldName("id"),
     nameFieldName("name"),
@@ -42,6 +46,8 @@ BorrowerTableInfo::BorrowerTableInfo() :
     regionFieldName("region_id"),
     placeFieldName("place"),
     contactFieldName("contact"),
+    colorIdFieldName("color"),
+    commentFieldName("comment"),
 
     textType("TEXT"),
     integerType("INTEGER")
@@ -58,6 +64,8 @@ BorrowerTableInfo::BorrowerTableInfo() :
     idNameMap.insert(regionFieldID, regionFieldName);
     idNameMap.insert(placeFieldID, placeFieldName);
     idNameMap.insert(contactFieldID, contactFieldName);
+    idNameMap.insert(colorIdFieldID, colorIdFieldName);
+    idNameMap.insert(commentFieldID, commentFieldName);
 
     nameAliasMap.insert(idFieldName, idFieldAlias);
     nameAliasMap.insert(nameFieldName, nameFieldAlias);
@@ -71,6 +79,8 @@ BorrowerTableInfo::BorrowerTableInfo() :
     nameAliasMap.insert(regionFieldName, regionFieldAlias);
     nameAliasMap.insert(placeFieldName, placeFieldAlias);
     nameAliasMap.insert(contactFieldName, contactFieldAlias);
+    nameAliasMap.insert(colorIdFieldName, colorIdFieldAlias);
+    nameAliasMap.insert(commentFieldName, commentFieldAlias);
 
     nameTypeMap.insert(idFieldName, integerType);
     nameTypeMap.insert(nameFieldName, textType);
@@ -84,6 +94,8 @@ BorrowerTableInfo::BorrowerTableInfo() :
     nameTypeMap.insert(regionFieldName, textType);
     nameTypeMap.insert(placeFieldName, textType);
     nameTypeMap.insert(contactFieldName, textType);
+    nameTypeMap.insert(colorIdFieldName, textType);
+    nameTypeMap.insert(commentFieldName, textType);
 }
 
 BorrowerTableInfo::~BorrowerTableInfo()

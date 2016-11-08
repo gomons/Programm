@@ -34,6 +34,8 @@ public:
     const int regionFieldID;
     const int placeFieldID;
     const int contactFieldID;
+    const int colorIdFieldID;
+    const int commentFieldID;
 
     const QString idFieldAlias;
     const QString nameFieldAlias;
@@ -47,6 +49,8 @@ public:
     const QString regionFieldAlias;
     const QString placeFieldAlias;
     const QString contactFieldAlias;
+    const QString colorIdFieldAlias;
+    const QString commentFieldAlias;
 
     const QString idFieldName;
     const QString nameFieldName;
@@ -60,6 +64,8 @@ public:
     const QString regionFieldName;
     const QString placeFieldName;
     const QString contactFieldName;
+    const QString colorIdFieldName;
+    const QString commentFieldName;
 
     const QString textType;
     const QString integerType;
