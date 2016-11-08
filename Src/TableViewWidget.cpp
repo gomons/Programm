@@ -117,6 +117,7 @@ void TableViewWidget::renameHeaders()
     }
 }
 
+QTableView *TableViewWidget::tableView() { return ui->tableView; }
 
 
 

@@ -43,10 +43,14 @@ public slots:
     void showSelectHeaderFieldsDlg();
     void showAboutDlg();
 
+    void print();
+
     void translateToEnglish();
     void transletToRussion();
 
 private:
+    void f();
+
     Ui::MainWindow *ui;
     QSqlRelationalTableModel *model;
     SortFilterProxyModel *proxyModel;

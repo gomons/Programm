@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QModelIndex>
+#include <QTableView>
 
 namespace Ui {
 class TableViewWidget;
@@ -27,6 +28,8 @@ public:
     QStringList getShownHeaders();
 
     QList<int> getSelectedRows();
+
+    QTableView *tableView();
 
 signals:
     void rowDoubleClicked(int);
