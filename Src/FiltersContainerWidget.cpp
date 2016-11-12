@@ -111,7 +111,9 @@ void FiltersContainerWidget::fillFiltersComboBox()
                 << tableInfo.amountFieldAlias
                 << tableInfo.regionFieldAlias
                 << tableInfo.placeFieldAlias
-                << tableInfo.contactFieldAlias;
+                << tableInfo.contactFieldAlias
+                << tableInfo.colorIdFieldAlias
+                << tableInfo.commentFieldAlias;
 
     ui->filterNameCombobox->addItems(filterNames);
 }

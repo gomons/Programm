@@ -5,7 +5,9 @@
 #include <QPrinter>
 #include <QSqlRelationalTableModel>
 #include <QTextStream>
+#include <QDebug>
 #include "BorrowerTableInfo.h"
+#include "ColorMap.h"
 
 ViewRecordDlg::ViewRecordDlg(QSqlRelationalTableModel *model, int row, QWidget *parent) :
     model(model),
@@ -56,8 +58,11 @@ void ViewRecordDlg::showInfo()
     }
     else
     {
-        reportTempl = tr("<font size='6'>%name %surname %patronymic</font> <br/>"
+        reportTempl = tr("<font size='6' color=%color>%name %surname %patronymic</font> <br/>"
                          "<img src='%photo' %size> <br/>"
+                         "<br/>"
+                         "<font size='5'>Comment</font> <br/>"
+                         "%comment<br/>"
                          "<br/>"
                          "<font size='5'>Region</font> <br/>"
                          "%region<br/>"
@@ -94,6 +99,8 @@ void ViewRecordDlg::showInfo()
     QModelIndex regionIndex = model->index(row, tableInfo.regionFieldID);
     QModelIndex placeIndex = model->index(row, tableInfo.placeFieldID);
     QModelIndex contactIndex = model->index(row, tableInfo.contactFieldID);
+    QModelIndex colorIndex = model->index(row, tableInfo.colorIdFieldID);
+    QModelIndex commentIndex = model->index(row, tableInfo.commentFieldID);
 
     QString name = model->data(nameIndex).toString();
     QString surname = model->data(surnameIndex).toString();
@@ -106,6 +113,16 @@ void ViewRecordDlg::showInfo()
     QString region = model->data(regionIndex).toString();
     QString place = model->data(placeIndex).toString();
     QString contact = model->data(contactIndex).toString();
+    QString comment = model->data(commentIndex).toString();
+
+    QString colorName = model->data(colorIndex).toString();
+    ColorMap colorMap;
+    QString color = colorMap.getColor(colorName).name();
+    if (color.toLower() == "#ffffff")
+    {
+        color = "#000000";
+    }
+    qDebug() << colorName << " "<<  color;
 
     QPixmap pixmap(photo);
     QSize photo_size = pixmap.size();
@@ -125,7 +142,9 @@ void ViewRecordDlg::showInfo()
                       replace("%amount", amount).
                       replace("%region", region).
                       replace("%place", place).
-                      replace("%contact", contact);
+                      replace("%contact", contact).
+                      replace("%color", color).
+                      replace("%comment", comment);
 
     ui->textEdit->setText(content);
 }

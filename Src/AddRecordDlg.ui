@@ -225,6 +225,7 @@
   <tabstop>amountEdit</tabstop>
   <tabstop>loanGuaranteeEdit</tabstop>
   <tabstop>colorComboBox</tabstop>
+  <tabstop>commentLineEdit</tabstop>
   <tabstop>photoEdit</tabstop>
   <tabstop>loadPhotoButton</tabstop>
   <tabstop>removePhotoButton</tabstop>

@@ -243,17 +243,6 @@ void MainWindow::showAboutDlg()
 void MainWindow::print()
 {
     f();
-
-//    QPrinter printer;
-//    QPrintDialog dialog(&printer, this);
-//    int res = dialog.exec();
-//    if (res == QDialog::Accepted)
-//    {
-//        QString text = "<b>Hello!</b>";
-//        QTextEdit tableTextEdit;
-//        tableTextEdit.setText(text);
-//        tableTextEdit.print(&printer);
-//    }
 }
 
 void MainWindow::translateToEnglish()
@@ -309,8 +298,10 @@ void MainWindow::f()
         for (int column = 0; column < columnCount; column++) {
             if (!tableViewWidget->tableView()->isColumnHidden(column))
             {
+                QColor color = proxyModel->data(proxyModel->index(row, column), Qt::BackgroundRole).value<QColor>();
+                QString colorName = color.name();
                 QString data = proxyModel->data(proxyModel->index(row, column)).toString().simplified();
-                out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+                out << QString("<td bkcolor=0 bgcolor=%2>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;")).arg(colorName);
             }
         }
         out << "</tr>\n";

@@ -10,8 +10,9 @@
     </message>
     <message>
         <location filename="AboutDlg.ui" line="57"/>
-        <source>Based on Qt 5.4.1</source>
-        <translation>Основано на Qt 5.4.1</translation>
+        <source>Based on Qt 5</source>
+        <oldsource>Based on Qt 5.4.1</oldsource>
+        <translation>Основано на Qt 5</translation>
     </message>
     <message>
         <location filename="AboutDlg.ui" line="94"/>
@@ -27,67 +28,77 @@
         <translation>Введите данные заемщика</translation>
     </message>
     <message>
-        <location filename="AddRecordDlg.ui" line="24"/>
+        <location filename="AddRecordDlg.ui" line="46"/>
         <source>Patronymic</source>
         <translation>Отчество</translation>
     </message>
     <message>
-        <location filename="AddRecordDlg.ui" line="40"/>
+        <location filename="AddRecordDlg.ui" line="33"/>
         <source>Region</source>
         <translation>Регион</translation>
     </message>
     <message>
-        <location filename="AddRecordDlg.ui" line="47"/>
+        <location filename="AddRecordDlg.ui" line="53"/>
         <source>Loan guarantee</source>
         <translation>Обеспечение займа</translation>
     </message>
     <message>
-        <location filename="AddRecordDlg.ui" line="54"/>
+        <location filename="AddRecordDlg.ui" line="77"/>
         <source>Contact</source>
         <translation>Контакты</translation>
     </message>
     <message>
-        <location filename="AddRecordDlg.ui" line="67"/>
+        <location filename="AddRecordDlg.ui" line="70"/>
         <source>Amount</source>
         <translation>Сумма</translation>
     </message>
     <message>
-        <location filename="AddRecordDlg.ui" line="74"/>
+        <location filename="AddRecordDlg.ui" line="60"/>
         <source>Name</source>
         <translation>Имя</translation>
     </message>
     <message>
-        <location filename="AddRecordDlg.ui" line="81"/>
+        <location filename="AddRecordDlg.ui" line="104"/>
         <source>Surname</source>
         <translation>Фамилия</translation>
     </message>
     <message>
-        <location filename="AddRecordDlg.ui" line="94"/>
+        <location filename="AddRecordDlg.ui" line="84"/>
         <source>Place</source>
         <translation>Место</translation>
     </message>
     <message>
-        <location filename="AddRecordDlg.ui" line="104"/>
+        <location filename="AddRecordDlg.ui" line="124"/>
         <source>Belonging</source>
         <translation>Принадлежность</translation>
     </message>
     <message>
-        <location filename="AddRecordDlg.ui" line="114"/>
+        <location filename="AddRecordDlg.ui" line="97"/>
         <source>Activity</source>
         <translation>Деятельность</translation>
     </message>
     <message>
-        <location filename="AddRecordDlg.ui" line="146"/>
+        <location filename="AddRecordDlg.ui" line="117"/>
+        <source>Color</source>
+        <translation>Цвет</translation>
+    </message>
+    <message>
+        <location filename="AddRecordDlg.ui" line="134"/>
+        <source>Comment</source>
+        <translation>Комментарий</translation>
+    </message>
+    <message>
+        <location filename="AddRecordDlg.ui" line="166"/>
         <source>photo</source>
         <translation>Фотография</translation>
     </message>
     <message>
-        <location filename="AddRecordDlg.ui" line="156"/>
+        <location filename="AddRecordDlg.ui" line="176"/>
         <source>Load Photo</source>
         <translation>Загрузить фотографию</translation>
     </message>
     <message>
-        <location filename="AddRecordDlg.ui" line="163"/>
+        <location filename="AddRecordDlg.ui" line="183"/>
         <source>Remove Photo</source>
         <translation>Удалить фотографию</translation>
     </message>
@@ -95,7 +106,7 @@
         <location filename="AddRecordDlg.cpp" line="77"/>
         <location filename="AddRecordDlg.cpp" line="84"/>
         <location filename="AddRecordDlg.cpp" line="97"/>
-        <location filename="AddRecordDlg.cpp" line="174"/>
+        <location filename="AddRecordDlg.cpp" line="180"/>
         <source>Add record</source>
         <translation>Добаление записи</translation>
     </message>
@@ -125,7 +136,7 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="AddRecordDlg.cpp" line="174"/>
+        <location filename="AddRecordDlg.cpp" line="180"/>
         <source>Invalid photo data</source>
         <translation>Неправильный формат фотографии</translation>
     </message>
@@ -187,157 +198,178 @@
         <translation>Таблица</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="53"/>
+        <location filename="MainWindow.ui" line="103"/>
         <source>Add</source>
         <translation>Добавить запись</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="66"/>
+        <location filename="MainWindow.ui" line="116"/>
         <source>Remove</source>
         <translation>Удалить запись</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="85"/>
+        <location filename="MainWindow.ui" line="123"/>
+        <source>Print</source>
+        <translation>Печать</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="142"/>
         <source>Tools</source>
         <translation>Инструменты</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="92"/>
+        <location filename="MainWindow.ui" line="149"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="98"/>
+        <location filename="MainWindow.ui" line="155"/>
         <source>Help</source>
         <translation>Помощь</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="104"/>
+        <location filename="MainWindow.ui" line="161"/>
         <source>Language/Язык</source>
         <translation>Язык/Language</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="116"/>
+        <location filename="MainWindow.ui" line="173"/>
         <source>tools</source>
         <translation>Инструменты</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="137"/>
+        <location filename="MainWindow.ui" line="194"/>
         <source>Select headers</source>
         <translation>Выбрать заголовки</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="146"/>
+        <location filename="MainWindow.ui" line="203"/>
         <source>Filter</source>
         <translation>Фильтровать</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="155"/>
+        <location filename="MainWindow.ui" line="212"/>
         <source>Exit</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="160"/>
+        <location filename="MainWindow.ui" line="217"/>
         <source>About</source>
         <translation>О программе</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="168"/>
+        <location filename="MainWindow.ui" line="225"/>
         <source>English</source>
         <translation>English</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="179"/>
+        <location filename="MainWindow.ui" line="236"/>
         <source>Русский</source>
         <translation>Русский</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="102"/>
+        <location filename="MainWindow.cpp" line="119"/>
         <source>Removing records.</source>
         <translation>Удаление записи.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="103"/>
+        <location filename="MainWindow.cpp" line="120"/>
         <source>Do you realy want delete </source>
         <translation>Вы действительно хотите удалить </translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="103"/>
+        <location filename="MainWindow.cpp" line="120"/>
         <source> records?</source>
         <translation>запись?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="120"/>
+        <location filename="MainWindow.cpp" line="137"/>
+        <location filename="MainWindow.cpp" line="185"/>
         <source>Database error.</source>
         <translation>Ошибка базы данных.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="121"/>
+        <location filename="MainWindow.cpp" line="138"/>
         <source>Can not remove record. Error: </source>
         <translation>Не получается удалить запись. Ошибка: </translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="186"/>
+        <source>Can not change record color. Error: </source>
+        <translation>Не могу изменить запись цвет в таблице. Ошибка: </translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="BorrowerTableInfo.cpp" line="20"/>
+        <location filename="BorrowerTableInfo.cpp" line="22"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="BorrowerTableInfo.cpp" line="21"/>
+        <location filename="BorrowerTableInfo.cpp" line="23"/>
         <source>Name</source>
         <translation>Имя</translation>
     </message>
     <message>
-        <location filename="BorrowerTableInfo.cpp" line="22"/>
+        <location filename="BorrowerTableInfo.cpp" line="24"/>
         <source>Surname</source>
         <translation>Фамилия</translation>
     </message>
     <message>
-        <location filename="BorrowerTableInfo.cpp" line="23"/>
+        <location filename="BorrowerTableInfo.cpp" line="25"/>
         <source>Patronymic</source>
         <translation>Отчество</translation>
     </message>
     <message>
-        <location filename="BorrowerTableInfo.cpp" line="24"/>
+        <location filename="BorrowerTableInfo.cpp" line="26"/>
         <source>Photo</source>
         <translation>Фотография</translation>
     </message>
     <message>
-        <location filename="BorrowerTableInfo.cpp" line="25"/>
+        <location filename="BorrowerTableInfo.cpp" line="27"/>
         <source>Activity</source>
         <translation>Деятельность</translation>
     </message>
     <message>
-        <location filename="BorrowerTableInfo.cpp" line="26"/>
+        <location filename="BorrowerTableInfo.cpp" line="28"/>
         <source>Loan guarantee</source>
         <translation>Обеспечение займа</translation>
     </message>
     <message>
-        <location filename="BorrowerTableInfo.cpp" line="27"/>
+        <location filename="BorrowerTableInfo.cpp" line="29"/>
         <source>Belonging</source>
         <translation>Принадлежность</translation>
     </message>
     <message>
-        <location filename="BorrowerTableInfo.cpp" line="28"/>
+        <location filename="BorrowerTableInfo.cpp" line="30"/>
         <source>Amount</source>
         <translation>Сумма</translation>
     </message>
     <message>
-        <location filename="BorrowerTableInfo.cpp" line="29"/>
+        <location filename="BorrowerTableInfo.cpp" line="31"/>
         <source>Region</source>
         <translation>Регион</translation>
     </message>
     <message>
-        <location filename="BorrowerTableInfo.cpp" line="30"/>
+        <location filename="BorrowerTableInfo.cpp" line="32"/>
         <source>Place</source>
         <translation>Место</translation>
     </message>
     <message>
-        <location filename="BorrowerTableInfo.cpp" line="31"/>
+        <location filename="BorrowerTableInfo.cpp" line="33"/>
         <source>Contact</source>
         <translation>Контакты</translation>
+    </message>
+    <message>
+        <location filename="BorrowerTableInfo.cpp" line="34"/>
+        <source>Color</source>
+        <translation>Цвет</translation>
+    </message>
+    <message>
+        <location filename="BorrowerTableInfo.cpp" line="35"/>
+        <source>Comment</source>
+        <translation>Комментарий</translation>
     </message>
     <message>
         <location filename="main.cpp" line="29"/>
@@ -364,9 +396,13 @@
     <message>
         <location filename="main.cpp" line="84"/>
         <location filename="main.cpp" line="94"/>
-        <location filename="main.cpp" line="110"/>
-        <location filename="main.cpp" line="135"/>
-        <location filename="main.cpp" line="173"/>
+        <location filename="main.cpp" line="118"/>
+        <location filename="main.cpp" line="137"/>
+        <location filename="main.cpp" line="161"/>
+        <location filename="main.cpp" line="178"/>
+        <location filename="main.cpp" line="201"/>
+        <location filename="main.cpp" line="219"/>
+        <location filename="main.cpp" line="254"/>
         <source>Database error.</source>
         <translation>Ошибка базы данных.</translation>
     </message>
@@ -381,19 +417,64 @@
         <translation>Не получается загрузить базу данных. Ошибка: </translation>
     </message>
     <message>
-        <location filename="main.cpp" line="111"/>
+        <location filename="main.cpp" line="119"/>
         <source>Table &apos;region&apos; is not created. Error: </source>
         <translation>Не получается создать таблицу &apos;region&apos;. Ошибка: </translation>
     </message>
     <message>
-        <location filename="main.cpp" line="136"/>
+        <location filename="main.cpp" line="138"/>
+        <source>Table &apos;region&apos; not populated.</source>
+        <translation>Таблица &apos;регион&apos; не заполнена.</translation>
+    </message>
+    <message>
+        <location filename="main.cpp" line="162"/>
+        <source>Table &apos;color&apos; is not created. Error: </source>
+        <translation>Таблица &apos;цвет&apos; не создана. Ошибка: </translation>
+    </message>
+    <message>
+        <location filename="main.cpp" line="179"/>
+        <source>Table &apos;color&apos; not populated.</source>
+        <translation>Таблица &apos;цвет&apos; не заполнена.</translation>
+    </message>
+    <message>
+        <location filename="main.cpp" line="202"/>
         <source>Table &apos;belonging&apos; is not created. Error: </source>
         <translation>Не получается создать таблицу &quot;belonging&quot;. Ошибка: </translation>
     </message>
     <message>
-        <location filename="main.cpp" line="174"/>
+        <location filename="main.cpp" line="220"/>
+        <source>Table &apos;belonging&apos; not populated.</source>
+        <translation>Таблица &apos;форма собственности&apos; не заполнена.</translation>
+    </message>
+    <message>
+        <location filename="main.cpp" line="255"/>
         <source>Table &apos;borrower&apos; is not created. Error: </source>
         <translation>Не получается создать таблицу &apos;borrower&apos;. Ошибка: </translation>
+    </message>
+    <message>
+        <location filename="ColorMap.cpp" line="31"/>
+        <source>Белый</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="ColorMap.cpp" line="35"/>
+        <source>Красный</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="ColorMap.cpp" line="39"/>
+        <source>Желтый</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="ColorMap.cpp" line="43"/>
+        <source>Зеленый</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="ColorMap.cpp" line="47"/>
+        <source>Синий</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -463,9 +544,13 @@
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="ViewRecordDlg.cpp" line="59"/>
         <source>&lt;font size=&apos;6&apos;&gt;%name %surname %patronymic&lt;/font&gt; &lt;br/&gt;&lt;img src=&apos;%photo&apos; %size&gt; &lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Region&lt;/font&gt; &lt;br/&gt;%region&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Place&lt;/font&gt; &lt;br/&gt;%place&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Loan guarantee&lt;/font&gt; &lt;br/&gt;%loanGuarantee&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Belonging&lt;/font&gt; &lt;br/&gt;%belonging&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Amount&lt;/font&gt; &lt;br/&gt;%amount&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Contact&lt;/font&gt; &lt;br/&gt;%contact&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Activity&lt;/font&gt; &lt;br/&gt;%activity&lt;br/&gt;</source>
-        <translation>&lt;font size=&apos;6&apos;&gt;%name %surname %patronymic&lt;/font&gt; &lt;br/&gt;&lt;img src=&apos;%photo&apos; %size&gt; &lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Регион&lt;/font&gt; &lt;br/&gt;%region&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Место&lt;/font&gt; &lt;br/&gt;%place&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Обеспечение займа&lt;/font&gt; &lt;br/&gt;%loanGuarantee&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Принадлежность&lt;/font&gt; &lt;br/&gt;%belonging&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Сумма&lt;/font&gt; &lt;br/&gt;%amount&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Контакты&lt;/font&gt; &lt;br/&gt;%contact&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Деятельность&lt;/font&gt; &lt;br/&gt;%activity&lt;br/&gt;</translation>
+        <translation type="vanished">&lt;font size=&apos;6&apos;&gt;%name %surname %patronymic&lt;/font&gt; &lt;br/&gt;&lt;img src=&apos;%photo&apos; %size&gt; &lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Регион&lt;/font&gt; &lt;br/&gt;%region&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Место&lt;/font&gt; &lt;br/&gt;%place&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Обеспечение займа&lt;/font&gt; &lt;br/&gt;%loanGuarantee&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Принадлежность&lt;/font&gt; &lt;br/&gt;%belonging&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Сумма&lt;/font&gt; &lt;br/&gt;%amount&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Контакты&lt;/font&gt; &lt;br/&gt;%contact&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Деятельность&lt;/font&gt; &lt;br/&gt;%activity&lt;br/&gt;</translation>
+    </message>
+    <message>
+        <location filename="ViewRecordDlg.cpp" line="61"/>
+        <source>&lt;font size=&apos;6&apos; color=%color&gt;%name %surname %patronymic&lt;/font&gt; &lt;br/&gt;&lt;img src=&apos;%photo&apos; %size&gt; &lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Comment&lt;/font&gt; &lt;br/&gt;%comment&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Region&lt;/font&gt; &lt;br/&gt;%region&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Place&lt;/font&gt; &lt;br/&gt;%place&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Loan guarantee&lt;/font&gt; &lt;br/&gt;%loanGuarantee&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Belonging&lt;/font&gt; &lt;br/&gt;%belonging&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Amount&lt;/font&gt; &lt;br/&gt;%amount&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Contact&lt;/font&gt; &lt;br/&gt;%contact&lt;br/&gt;&lt;br/&gt;&lt;font size=&apos;5&apos;&gt;Activity&lt;/font&gt; &lt;br/&gt;%activity&lt;br/&gt;</source>
+        <translation></translation>
     </message>
 </context>
 </TS>

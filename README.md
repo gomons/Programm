@@ -1,5 +1,3 @@
-# Programm
+# Programm for database
 
-[![Coverage Status](https://img.shields.io/coveralls/gomons/Programm.svg)](https://coveralls.io/r/gomons/Programm)
-
-Programm for database
+A little program for friends.

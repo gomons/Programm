@@ -54,7 +54,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Based on Qt 5.4.1</string>
+        <string>Based on Qt 5</string>
        </property>
       </widget>
      </item>
